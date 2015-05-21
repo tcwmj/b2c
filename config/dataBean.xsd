@@ -1,0 +1,15 @@
+<!-- edited with XMLSpy v2010 (http://www.altova.com) by MESMERiZE (MiZE) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:include schemaLocation="definition.xsd"/>
+	<xs:include schemaLocation="loginCredential.xsd"/>
+	<xs:element name="dataBean">
+		<xs:complexType>
+			<xs:sequence>
+				<!-- general -->
+				<xs:element name="field" type="field" minOccurs="0" maxOccurs="unbounded"/>			
+				<!-- login -->
+				<xs:element ref="loginCredential" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

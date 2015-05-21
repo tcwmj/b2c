@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<dataBean xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="../config/dataBean.xsd">
+	<loginCredential name="admin">
+		<username>admin</username>
+		<password>password</password>
+		<captcha>1234</captcha>
+	</loginCredential>
+	
+	<loginCredential name="client">
+		<username>daoexuan</username>
+		<password>daoexuan</password>
+	</loginCredential>
+</dataBean>

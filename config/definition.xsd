@@ -1,0 +1,6 @@
+<!-- edited with XMLSpy v2010 (http://www.altova.com) by MESMERiZE (MiZE) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:complexType name="field" mixed="true">
+		<xs:attribute name="name"/>
+	</xs:complexType>
+</xs:schema>
