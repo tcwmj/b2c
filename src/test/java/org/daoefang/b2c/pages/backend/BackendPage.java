@@ -27,7 +27,6 @@ public class BackendPage extends Page implements IBackendPage {
 	 * @param field
 	 */
 	public void switchTo(Field field) {
-		switchToDefault();
 		String[] layer = field.getValue().split(SystemData.SEPARATOR);
 		for (int i = 0; i < layer.length; i++) {
 			driver.click(By.linkText(layer[i]));
@@ -43,7 +42,6 @@ public class BackendPage extends Page implements IBackendPage {
 	}
 
 	public void logout() {
-		switchToDefault();
 		driver.click(LOGOUT);
 	}
 }

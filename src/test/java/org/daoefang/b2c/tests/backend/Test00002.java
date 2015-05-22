@@ -23,8 +23,8 @@ public class Test00002 extends TestCase {
 			ret[i] = new Object[] { member.get(i) };
 		}
 		return ret;
-		// return new Object[][] { new Object[] { lc.get(0) },
-		// new Object[] { lc.get(1) }, new Object[] { lc.get(2) } };
+		// return new Object[][] { new Object[] { member.get(0) },
+		// new Object[] { member.get(1) }, new Object[] { member.get(2) } };
 	}
 
 	@Test(description = "导航到后台登录界面")
@@ -40,13 +40,23 @@ public class Test00002 extends TestCase {
 	@Test(dataProvider = "member", description = "批量添加新会员并且验证添加成功")
 	public void step030(Member member) {
 		backend.siteConfiguration().switchTo(MEMEBER_LIST);
-		backend.memberManagement().enterAddMember();
 		backend.memberManagement().addMember(member.randomize());
-		if (member.getUsername() == null || member.getPhoneNumber() == null
-				|| member.getEmail() == null)
+		if (member.getUsername() == null) {
+			backend.memberManagement().switchToFrame();
 			backend.memberManagement().assertDisplayed(
 					IMemberManagementPage.SUBMIT, true);
-		else
+			backend.memberManagement().switchToDefault();
+		} else if (member.getPhoneNumber() == null) {
+			backend.memberManagement().switchToFrame();
+			backend.memberManagement().assertTextDisplayed(
+					INVALID_PHONE_NUMBER.getValue(), true);
+			backend.memberManagement().switchToDefault();
+		} else if (member.getEmail() == null) {
+			backend.memberManagement().switchToFrame();
+			backend.memberManagement().assertTextDisplayed(
+					INVALID_EMAIL.getValue(), true);
+			backend.memberManagement().switchToDefault();
+		} else
 			backend.memberManagement().assertMemberList(member, true);
 	}
 

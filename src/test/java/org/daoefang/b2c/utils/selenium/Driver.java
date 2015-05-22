@@ -715,7 +715,7 @@ public class Driver {
 		try {
 			// driver.manage().timeouts()
 			// .implicitlyWait(seconds, TimeUnit.SECONDS);
-			ret = driver.findElement(by).isDisplayed();
+			ret = findElement(by).isDisplayed();
 		} catch (NoSuchElementException | StaleElementReferenceException e) {
 		}
 		// finally {
@@ -1090,6 +1090,7 @@ public class Driver {
 	 * @param by
 	 * @return
 	 */
+	@SuppressWarnings("unused")
 	private List<WebElement> findElements(By by) {
 		waitDocumentReady();
 		return wait
@@ -1415,22 +1416,5 @@ public class Driver {
 			// e.printStackTrace();
 		}
 		return we;
-	}
-
-	public void selectRadioGroup(By by, String label) {
-		logger.debug("Try to select radio group " + by.toString()
-				+ " by label " + label);
-		WebElement e = getParentElement(by);
-		e.findElement(By.xpath("//*[contains(text(),'" + label + "')]//input"))
-				.click();
-		waitDocumentReady();
-	}
-
-	public void selectRadioGroup(By by, int index) {
-		logger.debug("Try to select radio group " + by.toString()
-				+ " by index " + index);
-		List<WebElement> e = findElements(by);
-		e.get(index).click();
-		waitDocumentReady();
 	}
 }

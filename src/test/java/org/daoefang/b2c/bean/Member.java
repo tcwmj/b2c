@@ -26,7 +26,7 @@ public class Member {
 	protected String password;
 	protected String confirmPassword;
 	protected String phoneNumber;
-	protected String sex;
+	protected Boolean sex;
 	protected String birthday;
 	protected String email;
 	protected String qq;
@@ -36,18 +36,18 @@ public class Member {
 	@XmlAttribute(name = "name")
 	protected String name;
 
-	public String getUsername() {
-		return username;
-	}
-
 	public Member randomize() {
 		if (this.username != null)
-			this.username = SystemData.PREFIX + "_user_" + Helper.randomize();
+			this.username = Helper.randomize();
 		if (this.phoneNumber != null)
 			this.phoneNumber = Helper.getRandomPhoneNumber();
 		if (this.email != null)
 			this.email = Helper.getRandomEmail(6, 19);
 		return this;
+	}
+
+	public String getUsername() {
+		return username;
 	}
 
 	public void setUsername(String value) {
@@ -78,11 +78,11 @@ public class Member {
 		this.phoneNumber = value;
 	}
 
-	public String getSex() {
+	public Boolean isSex() {
 		return sex;
 	}
 
-	public void setSex(String value) {
+	public void setSex(Boolean value) {
 		this.sex = value;
 	}
 

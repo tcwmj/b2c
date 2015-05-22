@@ -6,7 +6,7 @@
 				<xs:element name="password" type="xs:string" minOccurs="0"/>
 				<xs:element name="confirmPassword" type="xs:string" minOccurs="0"/>
 				<xs:element name="phoneNumber" type="xs:string" minOccurs="0"/>
-				<xs:element name="sex" type="xs:string" minOccurs="0"/>
+				<xs:element name="sex" type="xs:boolean" minOccurs="0"/>
 				<xs:element name="birthday" type="xs:string" minOccurs="0"/>
 				<xs:element name="email" type="xs:string" minOccurs="0"/>
 				<xs:element name="qq" type="xs:string" minOccurs="0"/>

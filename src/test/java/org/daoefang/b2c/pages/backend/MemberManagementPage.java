@@ -15,24 +15,24 @@ public class MemberManagementPage extends BackendPage implements
 		super(driver);
 	}
 
-	public void enterAddMember() {
-		switchToFrame();
-		driver.click(ADD_MEMBER);
-	}
-
 	/**
 	 * add a member
 	 * 
 	 * @param member
 	 */
 	public void addMember(Member member) {
-//		switchToFrame();
+		switchToFrame();
+		driver.click(ADD_MEMBER);
 		if (member.getUsername() != null)
 			driver.input(USERNAME, member.getUsername());
 		if (member.getPhoneNumber() != null)
 			driver.input(MOBILE_PHONE, member.getPhoneNumber());
-		if (member.getSex() != null)
-			driver.selectRadioGroup(SEX, member.getSex());
+		if (member.isSex() != null) {
+			if (member.isSex())
+				driver.click(MAN);
+			else
+				driver.click(WOMAN);
+		}
 		if (member.getBirthday() != null)
 			driver.input(BIRTHDAY, member.getBirthday());
 		if (member.getEmail() != null)
@@ -40,7 +40,7 @@ public class MemberManagementPage extends BackendPage implements
 		if (member.getQq() != null)
 			driver.input(QQ, member.getQq());
 		driver.click(SUBMIT);
-
+		switchToDefault();
 	}
 
 	/**
@@ -54,9 +54,9 @@ public class MemberManagementPage extends BackendPage implements
 		Method[] methods = member.getClass().getDeclaredMethods();
 		for (Method method : methods) {
 			try {
-				if ((method.getName().startsWith("get") || !method.getName()
-						.startsWith("is"))
-						&& !method.getName().equals("getName")
+				if ((method.getName().startsWith("getUsername")
+						|| method.getName().startsWith("getPhoneNumber") || method
+						.getName().equals("getEmail"))
 						&& method.invoke(member) != null) {
 					xpath.append("[td[div='" + method.invoke(member) + "']]");
 				}
@@ -66,6 +66,8 @@ public class MemberManagementPage extends BackendPage implements
 				e.printStackTrace();
 			}
 		}
+		switchToFrame();
 		assertDisplayed(By.xpath(xpath.toString()), displayed);
+		switchToDefault();
 	}
 }

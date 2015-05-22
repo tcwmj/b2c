@@ -19,6 +19,10 @@ public interface SystemData {
 	public static final String FIRE_EVENT_ONCLICK = "onclick";
 	public static final String FIRE_EVENT_ONCHANGE = "onchange";
 
+	public static final Field INVALID_PHONE_NUMBER = sd
+			.getField("invalid_phone_number");
+	public static final Field INVALID_EMAIL = sd.getField("invalid_email");
+
 	public static final LoginCredential ADMIN = sd.getLoginCredential("admin");
 	public static final LoginCredential CLIENT = sd
 			.getLoginCredential("client");

@@ -15,7 +15,7 @@
 	<member name="member3">
 		<username></username>
 		<phoneNumber></phoneNumber>
-		<sex>??</sex>
+		<sex>true</sex>
 		<birthday>2000-10-30</birthday>
 		<email></email>
 	</member>
