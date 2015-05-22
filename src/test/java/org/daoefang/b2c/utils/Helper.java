@@ -3,22 +3,14 @@ package org.daoefang.b2c.utils;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Properties;
-import java.util.Set;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
@@ -278,31 +270,6 @@ public class Helper {
 	}
 
 	/**
-	 * generate excel feed files
-	 * 
-	 * @param testcase
-	 * @param list
-	 * @return
-	 */
-	public static <T> String getXlsFeedFile(TestCase testcase, List<T> list) {
-		if (list != null && !list.isEmpty()) {
-			String fileName = testcase.getClass().getSimpleName() + "_"
-					+ randomize() + ".xls";
-			String filePath = "target/data/" + fileName;
-			File file = new File(filePath);
-			try {
-				PoiHelper.marshal(list).write(new FileOutputStream(file));
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			testcase.report(getTestReportStyle("../../../" + filePath,
-					"generated feed file " + fileName));
-			return file.getAbsolutePath();
-		}
-		return null;
-	}
-
-	/**
 	 * @param source
 	 * @param text
 	 * @return
@@ -315,54 +282,56 @@ public class Helper {
 	}
 
 	/**
-	 * read xml and xls feed mapping rule from a file
+	 * 获得一个随机数
 	 * 
-	 * @param file
+	 * @param start
+	 * @param end
 	 * @return
 	 */
-	public static Map<String, Map<String, String>> getFeedMapping(String file) {
-		FileInputStream isr = null;
-		Reader r = null;
-		try {
-			isr = new FileInputStream(file);
-			r = new InputStreamReader(isr, "utf-8");
-			Properties props = new Properties();
-			props.load(r);
-			Map<String, Map<String, String>> map = new HashMap<String, Map<String, String>>();
-			Set<Entry<Object, Object>> entrySet = props.entrySet();
-			for (Entry<Object, Object> entry : entrySet) {
-				if (!entry.getKey().toString().startsWith("#")) {
-					Map<String, String> m = new HashMap<String, String>();
-					String s = ((String) entry.getValue()).trim();
-					s = s.substring(1, s.length() - 1);
-					String[] kvs = s.split(",");
-					for (String kv : kvs) {
-						m.put(kv.substring(0, kv.indexOf('=')).trim(), kv
-								.substring(kv.indexOf('=') + 1).trim());
-						map.put(((String) entry.getKey()).trim(), m);
-					}
-				}
-			}
-			return map;
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			if (r != null) {
-				try {
-					r.close();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
-			if (isr != null) {
-				try {
-					isr.close();
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
+	public static int getRandomNumber(int start, int end) {
+		return (int) (Math.random() * (end - start + 1) + start);
+	}
+
+	/**
+	 * 中国区手机号码段
+	 */
+	private static String[] tel_prefix = "139,138,137,136,135,134,159,158,152,151,150,157,182,183,184,188,187,147,130,131,132,155,156,186,185,145,155,156,186,133,153,177,180,181,189"
+			.split(",");
+
+	/**
+	 * @return 随机手机号码
+	 */
+	public static String getRandomPhoneNumber() {
+		int index = getRandomNumber(0, tel_prefix.length - 1);
+		String first = tel_prefix[index];
+		String second = String.valueOf(getRandomNumber(1, 888) + 10000)
+				.substring(1);
+		String thrid = String.valueOf(getRandomNumber(1, 9100) + 10000)
+				.substring(1);
+		return first + second + thrid;
+	}
+
+	private static final String base = "abcdefghijklmnopqrstuvwxyz0123456789";
+	private static final String[] email_suffix = "@gmail.com,@yahoo.com,@msn.com,@hotmail.com,@aol.com,@ask.com,@live.com,@qq.com,@0355.net,@163.com,@163.net,@263.net,@3721.net,@yeah.net,@googlemail.com,@126.com,@sina.com,@sohu.com,@yahoo.com.cn"
+			.split(",");
+
+	/**
+	 * 获得一个随机的email地址
+	 * 
+	 * @param min
+	 *            最小长度
+	 * @param max
+	 *            最大长度
+	 * @return
+	 */
+	public static String getRandomEmail(int min, int max) {
+		int length = getRandomNumber(min, max);
+		StringBuffer sb = new StringBuffer();
+		for (int i = 0; i < length; i++) {
+			int number = (int) (Math.random() * base.length());
+			sb.append(base.charAt(number));
 		}
-		return null;
+		sb.append(email_suffix[(int) (Math.random() * email_suffix.length)]);
+		return sb.toString();
 	}
 }

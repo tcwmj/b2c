@@ -2,13 +2,15 @@
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
 	<xs:include schemaLocation="definition.xsd"/>
 	<xs:include schemaLocation="loginCredential.xsd"/>
+	<xs:include schemaLocation="member.xsd"/>
 	<xs:element name="dataBean">
 		<xs:complexType>
 			<xs:sequence>
 				<!-- general -->
-				<xs:element name="field" type="field" minOccurs="0" maxOccurs="unbounded"/>			
+				<xs:element name="field" type="field" minOccurs="0" maxOccurs="unbounded"/>
 				<!-- login -->
 				<xs:element ref="loginCredential" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="member" minOccurs="0" maxOccurs="unbounded"/>
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>

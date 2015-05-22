@@ -1,0 +1,20 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:element name="member">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="username" type="xs:string" minOccurs="0"/>
+				<xs:element name="password" type="xs:string" minOccurs="0"/>
+				<xs:element name="confirmPassword" type="xs:string" minOccurs="0"/>
+				<xs:element name="phoneNumber" type="xs:string" minOccurs="0"/>
+				<xs:element name="sex" type="xs:string" minOccurs="0"/>
+				<xs:element name="birthday" type="xs:string" minOccurs="0"/>
+				<xs:element name="email" type="xs:string" minOccurs="0"/>
+				<xs:element name="qq" type="xs:string" minOccurs="0"/>
+				<xs:element name="points" type="xs:string" minOccurs="0"/>
+				<xs:element name="experience" type="xs:string" minOccurs="0"/>
+				<xs:element name="registrationDate" type="xs:string" minOccurs="0"/>
+			</xs:sequence>
+			<xs:attribute name="name" type="xs:string"/>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

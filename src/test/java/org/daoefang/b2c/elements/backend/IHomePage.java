@@ -1,13 +1,12 @@
 package org.daoefang.b2c.elements.backend;
 
-import org.daoefang.b2c.elements.IPage;
 import org.openqa.selenium.By;
 
 /**
  * @author Kenny Wang
  * 
  */
-public interface IHomePage extends IPage {
+public interface IHomePage extends IBackendPage {
 	/**
 	 * 登录用户名输入框
 	 */

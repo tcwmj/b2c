@@ -47,6 +47,7 @@ import org.testng.Assert;
 import org.testng.ITestResult;
 import org.testng.Reporter;
 
+import com.gargoylesoftware.htmlunit.ElementNotFoundException;
 import com.thoughtworks.selenium.webdriven.JavascriptLibrary;
 
 /**
@@ -467,7 +468,7 @@ public class Driver {
 	}
 
 	/**
-	 * using java script to tick web check box
+	 * tick web check box
 	 * 
 	 * @param by
 	 * @param value
@@ -1048,7 +1049,9 @@ public class Driver {
 			javascript
 					.executeScript("arguments[0].innerText = '" + text + "';",
 							findElement(by));
-		} catch (WebDriverException e) {
+		} catch (ElementNotFoundException e1) {
+			logger.error("locator " + by.toString() + " was not found", e1);
+		} catch (WebDriverException e2) {
 			// e.printStackTrace();
 		}
 
@@ -1087,7 +1090,6 @@ public class Driver {
 	 * @param by
 	 * @return
 	 */
-	@SuppressWarnings("unused")
 	private List<WebElement> findElements(By by) {
 		waitDocumentReady();
 		return wait
@@ -1124,7 +1126,9 @@ public class Driver {
 		try {
 			javascript.executeScript("arguments[0].fireEvent(\"" + event
 					+ "\")", findElement(by));
-		} catch (WebDriverException e) {
+		} catch (ElementNotFoundException e1) {
+			logger.error("locator " + by.toString() + " was not found", e1);
+		} catch (WebDriverException e2) {
 			// e.printStackTrace();
 		}
 		waitDocumentReady();
@@ -1148,7 +1152,7 @@ public class Driver {
 	}
 
 	/**
-	 * using java script to set element attribute
+	 * set element attribute
 	 * 
 	 * @param by
 	 * @param attribute
@@ -1159,13 +1163,15 @@ public class Driver {
 		try {
 			javascript.executeScript("arguments[0].setAttribute('" + attribute
 					+ "', arguments[1])", findElement(by), value);
-		} catch (WebDriverException e) {
+		} catch (ElementNotFoundException e1) {
+			logger.error("locator " + by.toString() + " was not found", e1);
+		} catch (WebDriverException e2) {
 			// e.printStackTrace();
 		}
 	}
 
 	/**
-	 * using java script to remove element attribute
+	 * remove element attribute
 	 * 
 	 * @param by
 	 * @param attribute
@@ -1175,7 +1181,9 @@ public class Driver {
 		try {
 			javascript.executeScript("arguments[0].removeAttribute('"
 					+ attribute + "')", findElement(by));
-		} catch (WebDriverException e) {
+		} catch (ElementNotFoundException e1) {
+			logger.error("locator " + by.toString() + " was not found", e1);
+		} catch (WebDriverException e2) {
 			// e.printStackTrace();
 		}
 	}
@@ -1211,7 +1219,7 @@ public class Driver {
 	}
 
 	/**
-	 * using java script to get row number of cell element in web table
+	 * get row number of cell element in web table
 	 * 
 	 * @param by
 	 */
@@ -1222,14 +1230,16 @@ public class Driver {
 			ret = (long) javascript.executeScript(
 					"return arguments[0].parentNode.rowIndex", findElement(by));
 			ret++;// row index starts with zero
-		} catch (WebDriverException e) {
-			e.printStackTrace();
+		} catch (ElementNotFoundException e1) {
+			logger.error("locator " + by.toString() + " was not found", e1);
+		} catch (WebDriverException e2) {
+			e2.printStackTrace();
 		}
 		return ret;
 	}
 
 	/**
-	 * using java script to get column number of cell element in web table
+	 * get column number of cell element in web table
 	 * 
 	 * @param by
 	 */
@@ -1240,14 +1250,16 @@ public class Driver {
 			ret = (long) javascript.executeScript(
 					"return arguments[0].cellIndex", findElement(by));
 			ret++;// column index starts with zero
-		} catch (WebDriverException e) {
-			e.printStackTrace();
+		} catch (ElementNotFoundException e1) {
+			logger.error("locator " + by.toString() + " was not found", e1);
+		} catch (WebDriverException e2) {
+			e2.printStackTrace();
 		}
 		return ret;
 	}
 
 	/**
-	 * using java script to get row number of row element in web table
+	 * get row number of row element in web table
 	 * 
 	 * @param by
 	 */
@@ -1258,14 +1270,16 @@ public class Driver {
 			ret = (long) javascript.executeScript(
 					"return arguments[0].rowIndex", findElement(by));
 			ret++;// row index starts with zero
-		} catch (WebDriverException e) {
-			e.printStackTrace();
+		} catch (ElementNotFoundException e1) {
+			logger.error("locator " + by.toString() + " was not found", e1);
+		} catch (WebDriverException e2) {
+			e2.printStackTrace();
 		}
 		return ret;
 	}
 
 	/**
-	 * using java script to get row count of web table
+	 * get row count of web table
 	 * 
 	 * @param by
 	 */
@@ -1275,8 +1289,10 @@ public class Driver {
 		try {
 			ret = (long) javascript.executeScript(
 					"return arguments[0].rows.length", findElement(by));
-		} catch (WebDriverException e) {
-			e.printStackTrace();
+		} catch (ElementNotFoundException e1) {
+			logger.error("locator " + by.toString() + " was not found", e1);
+		} catch (WebDriverException e2) {
+			e2.printStackTrace();
 		}
 		return ret;
 	}
@@ -1379,5 +1395,42 @@ public class Driver {
 		String value = driver.manage().getCookieNamed(name).getValue();
 		logger.debug("cookie " + name + "=" + value);
 		return value;
+	}
+
+	/**
+	 * get parent element by specified locator
+	 * 
+	 * @param by
+	 * @return
+	 */
+	public WebElement getParentElement(By by) {
+		JavascriptExecutor javascript = (JavascriptExecutor) driver;
+		WebElement we = null;
+		try {
+			we = (WebElement) javascript.executeScript(
+					"return arguments[0].parentNode", findElement(by));
+		} catch (ElementNotFoundException e1) {
+			logger.error("locator " + by.toString() + " was not found", e1);
+		} catch (WebDriverException e2) {
+			// e.printStackTrace();
+		}
+		return we;
+	}
+
+	public void selectRadioGroup(By by, String label) {
+		logger.debug("Try to select radio group " + by.toString()
+				+ " by label " + label);
+		WebElement e = getParentElement(by);
+		e.findElement(By.xpath("//*[contains(text(),'" + label + "')]//input"))
+				.click();
+		waitDocumentReady();
+	}
+
+	public void selectRadioGroup(By by, int index) {
+		logger.debug("Try to select radio group " + by.toString()
+				+ " by index " + index);
+		List<WebElement> e = findElements(by);
+		e.get(index).click();
+		waitDocumentReady();
 	}
 }

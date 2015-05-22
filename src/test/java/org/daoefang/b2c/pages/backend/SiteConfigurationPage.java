@@ -13,5 +13,4 @@ public final class SiteConfigurationPage extends BackendPage implements
 	public SiteConfigurationPage(Driver driver) {
 		super(driver);
 	}
-
 }

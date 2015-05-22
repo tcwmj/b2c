@@ -10,6 +10,7 @@ import org.apache.log4j.Logger;
 import org.daoefang.b2c.bean.DataBean;
 import org.daoefang.b2c.bean.SystemData;
 import org.daoefang.b2c.pages.backend.HomePage;
+import org.daoefang.b2c.pages.backend.MemberManagementPage;
 import org.daoefang.b2c.pages.backend.SiteConfigurationPage;
 import org.daoefang.b2c.utils.Helper;
 import org.daoefang.b2c.utils.JaxbHelper;
@@ -214,6 +215,7 @@ public class TestCase implements SystemData {
 
 		private HomePage homePage;
 		private SiteConfigurationPage siteConfigurationPage;
+		private MemberManagementPage memberManagementPage;
 
 		/**
 		 * @return the homePage
@@ -225,12 +227,21 @@ public class TestCase implements SystemData {
 		}
 
 		/**
-		 * @return the welcomePage
+		 * @return the SiteConfigurationPage
 		 */
 		public SiteConfigurationPage siteConfiguration() {
 			if (siteConfigurationPage == null)
 				siteConfigurationPage = new SiteConfigurationPage(driver);
 			return siteConfigurationPage;
+		}
+
+		/**
+		 * @return the MemberManagementPage
+		 */
+		public MemberManagementPage memberManagement() {
+			if (memberManagementPage == null)
+				memberManagementPage = new MemberManagementPage(driver);
+			return memberManagementPage;
 		}
 	}
 

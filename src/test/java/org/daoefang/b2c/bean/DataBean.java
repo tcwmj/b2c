@@ -13,37 +13,13 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = { "loginCredential", "field" })
+@XmlType(name = "", propOrder = { "field", "loginCredential", "member" })
 @XmlRootElement(name = "dataBean")
 public class DataBean {
 
-	protected List<LoginCredential> loginCredential;
 	protected List<Field> field;
-
-	public List<LoginCredential> getLoginCredential() {
-		if (loginCredential == null) {
-			loginCredential = new ArrayList<LoginCredential>();
-		}
-		return this.loginCredential;
-	}
-
-	public LoginCredential getLoginCredential(String name) {
-		for (LoginCredential element : this.getLoginCredential()) {
-			if (element.getName().equals(name))
-				return element;
-		}
-		return null;
-	}
-
-	public LoginCredential setLoginCredential(String name) {
-		LoginCredential element = getLoginCredential(name);
-		if (element == null) {
-			element = new LoginCredential();
-			element.setName(name);
-			this.getLoginCredential().add(element);
-		}
-		return element;
-	}
+	protected List<LoginCredential> loginCredential;
+	protected List<Member> member;
 
 	public List<Field> getField() {
 		if (field == null) {
@@ -70,4 +46,53 @@ public class DataBean {
 		return element;
 	}
 
+	public List<LoginCredential> getLoginCredential() {
+		if (loginCredential == null) {
+			loginCredential = new ArrayList<LoginCredential>();
+		}
+		return this.loginCredential;
+	}
+
+	public LoginCredential getLoginCredential(String name) {
+		for (LoginCredential element : this.getLoginCredential()) {
+			if (element.getName().equals(name))
+				return element;
+		}
+		return null;
+	}
+
+	public LoginCredential setLoginCredential(String name) {
+		LoginCredential element = getLoginCredential(name);
+		if (element == null) {
+			element = new LoginCredential();
+			element.setName(name);
+			this.getLoginCredential().add(element);
+		}
+		return element;
+	}
+
+	public List<Member> getMember() {
+		if (member == null) {
+			member = new ArrayList<Member>();
+		}
+		return this.member;
+	}
+
+	public Member getMember(String name) {
+		for (Member element : this.getMember()) {
+			if (element.getName().equals(name))
+				return element;
+		}
+		return null;
+	}
+
+	public Member setMember(String name) {
+		Member element = getMember(name);
+		if (element == null) {
+			element = new Member();
+			element.setName(name);
+			this.getMember().add(element);
+		}
+		return element;
+	}
 }

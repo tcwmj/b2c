@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <dataBean xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:noNamespaceSchemaLocation="../config/dataBean.xsd">
+	<field name="会员列表">会员管理&gt;会员列表</field>
+	<field name="添加会员">会员管理&gt;添加会员</field>
+	
 	<loginCredential name="admin">
 		<username>admin</username>
 		<password>password</password>

@@ -23,4 +23,7 @@ public interface SystemData {
 	public static final LoginCredential CLIENT = sd
 			.getLoginCredential("client");
 
+	public static final Field MEMEBER_LIST = sd.getField("会员列表");
+	public static final Field ADD_MEMEBER = sd.getField("添加会员");
+
 }
