@@ -14,4 +14,5 @@ public interface IBackendPage extends IPage {
 	public static final By EMAIL = By.name("email");
 	public static final By SUBMIT = By.className("button_search");
 	
+	public static final By LEFT_SIDE = By.className("side");
 }

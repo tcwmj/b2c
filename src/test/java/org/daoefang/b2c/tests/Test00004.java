@@ -11,12 +11,12 @@ import org.testng.annotations.Test;
  */
 public class Test00004 extends TestCase {
 
-	@Test(description = "导航到后台登录界面")
+	@Test(description = "导航到前台页面")
 	public void step010() {
 		frontend.home().navigateTo();
 	}
 
-	@Test(description = "使用后台验证码接口登录")
+	@Test(description = "导航到手机商品列表页面")
 	public void step020() {
 		driver.moveTo(IHomePage.PHONE_DIGITAL_COMMUNICATION);
 		// driver.fireEvent(IHomePage.PHONE_DIGITAL_COMMUNICATION,
@@ -25,12 +25,4 @@ public class Test00004 extends TestCase {
 		driver.assertTitle("手机 - 道e坊商城 - Powered by Haidao");
 	}
 
-	@Test(description = "批量添加新会员并且验证添加成功")
-	public void step030() {
-
-	}
-
-	@Test(description = "退出登录")
-	public void step040() {
-	}
 }

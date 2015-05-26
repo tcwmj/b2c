@@ -1,5 +1,7 @@
 package org.daoefang.b2c.utils.selenium;
 
+import static org.testng.Assert.assertEquals;
+
 import java.awt.AWTException;
 import java.awt.Robot;
 import java.io.File;
@@ -11,6 +13,7 @@ import java.util.Properties;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
+import org.daoefang.b2c.utils.ColorHelper;
 import org.daoefang.b2c.utils.Helper;
 import org.daoefang.b2c.utils.Property;
 import org.openqa.selenium.Alert;
@@ -993,6 +996,26 @@ public class Driver {
 		String message = "assert css attribute " + attribute + " of locator "
 				+ by.toString();
 		Assert.assertEquals(actual, value, message);
+	}
+
+	/**
+	 * 验证元素背景色
+	 * 
+	 * @param by
+	 * @param color
+	 *            hex color
+	 */
+	public void assertBackgroundColor(By by, String color) {
+		String rgbColor = getCSSAttribute(by, "backgroundColor");
+		String hexColor = ColorHelper.RGBAtoHex(rgbColor);
+		try {
+			assertEquals(hexColor.toLowerCase(), color.toLowerCase());
+		} catch (AssertionError e) {
+			String message = "assert background color of locator "
+					+ by.toString() + ", actual [" + hexColor + "], expected ["
+					+ color + "]";
+			throw new AssertionError(message);
+		}
 	}
 
 	/**

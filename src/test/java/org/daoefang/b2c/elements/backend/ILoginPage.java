@@ -6,7 +6,7 @@ import org.openqa.selenium.By;
  * @author Kenny Wang
  * 
  */
-public interface IHomePage extends IBackendPage {
+public interface ILoginPage extends IBackendPage {
 	/**
 	 * 登录用户名输入框
 	 */

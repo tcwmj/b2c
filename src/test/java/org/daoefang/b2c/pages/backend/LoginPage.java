@@ -2,14 +2,14 @@ package org.daoefang.b2c.pages.backend;
 
 import org.daoefang.b2c.bean.LoginCredential;
 import org.daoefang.b2c.bean.SystemData;
-import org.daoefang.b2c.elements.backend.IHomePage;
+import org.daoefang.b2c.elements.backend.ILoginPage;
 import org.daoefang.b2c.utils.selenium.Driver;
 
 /**
  * @author Kenny Wang
  * 
  */
-public final class LoginPage extends BackendPage implements IHomePage {
+public final class LoginPage extends BackendPage implements ILoginPage {
 
 	public LoginPage(Driver driver) {
 		super(driver);
