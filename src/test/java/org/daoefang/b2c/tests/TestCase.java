@@ -1,7 +1,6 @@
 package org.daoefang.b2c.tests;
 
 import java.io.File;
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -120,11 +119,7 @@ public class TestCase implements SystemData {
 	private static void setTestData(File file, DataBean data) {
 		if (data != null) {
 			String xml = JaxbHelper.marshal(data);
-			try {
-				FileUtils.write(file, xml);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+			Helper.writeFile(file, xml);
 		}
 	}
 

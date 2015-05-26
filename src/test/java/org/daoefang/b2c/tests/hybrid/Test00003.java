@@ -1,4 +1,4 @@
-package org.daoefang.b2c.tests.backend;
+package org.daoefang.b2c.tests.hybrid;
 
 import org.daoefang.b2c.elements.frontend.IGoodPage;
 import org.daoefang.b2c.tests.TestCase;
@@ -39,6 +39,7 @@ public class Test00003 extends TestCase {
 	@Test(description = "添加购物车并清空处理Confirm弹出框")
 	public void step060() {
 		driver.click(By.xpath(td.getField("iphone6").getValue()));
+		driver.switchToWindow();
 		driver.click(IGoodPage.ADD_TO_CART);
 		driver.click(IGoodPage.GOTO_SHOPPING_CART);
 		driver.click(IGoodPage.CLEAR_SHOPPING_CART);

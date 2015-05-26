@@ -1,11 +1,14 @@
 package org.daoefang.b2c.utils;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStreamWriter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -333,5 +336,26 @@ public class Helper {
 		}
 		sb.append(email_suffix[(int) (Math.random() * email_suffix.length)]);
 		return sb.toString();
+	}
+
+	/**
+	 * 把字符串内容写入文件，避免了中文乱码的情况
+	 * 
+	 * @param file
+	 * @param content
+	 */
+	public static void writeFile(File file, String content) {
+		try {
+			if (!file.exists())
+				file.createNewFile();
+			OutputStreamWriter write = new OutputStreamWriter(
+					new FileOutputStream(file), "UTF-8");
+			BufferedWriter writer = new BufferedWriter(write);
+			writer.write(content);
+			writer.close();
+		} catch (IOException e) {
+			System.err.println("文件内容写入出错");
+			e.printStackTrace();
+		}
 	}
 }

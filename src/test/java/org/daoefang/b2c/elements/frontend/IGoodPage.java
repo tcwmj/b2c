@@ -16,6 +16,6 @@ public interface IGoodPage extends IFrontendPage {
 	 * 清空购物车按钮
 	 */
 	public static final By CLEAR_SHOPPING_CART = By
-			.className("shopCar_btn_02 fl");
+			.xpath("//div[text()='清空购物车']");
 
 }

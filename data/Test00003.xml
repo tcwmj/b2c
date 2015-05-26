@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <dataBean xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:noNamespaceSchemaLocation="../config/dataBean.xsd">
-	<field name="iphone6">//li[text()='苹果 (Apple) iPhone 6 (A1586) 16GB 金色 移动联通电信4G手机']</field>
+	<field name="iphone6">//div[@class='module_pro'][//li[text()='苹果 (Apple) iPhone 6 (A1586) 16GB 金色 移动联通电信4G手机']]/a/img</field>
 	
 	<password name="admin">
 		<oldPassword>password</oldPassword>

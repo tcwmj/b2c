@@ -1153,6 +1153,36 @@ public class Driver {
 	}
 
 	/**
+	 * @param nameOrHandle
+	 */
+	public void switchToWindow(String nameOrHandle) {
+		driver.switchTo().window(nameOrHandle);
+	}
+
+	/**
+	 * switch to a new window if exists
+	 */
+	public void switchToWindow() {
+		// Store the current window handle
+		String winHandleBefore = driver.getWindowHandle();
+
+		// Switch to new window
+		for (String winHandle : driver.getWindowHandles()) {
+			if (!winHandleBefore.equals(winHandle)) {
+				switchToWindow(winHandle);
+				break;
+			}
+		}
+	}
+
+	/**
+	 * close the current window
+	 */
+	public void close() {
+		driver.close();
+	}
+
+	/**
 	 * set element attribute
 	 * 
 	 * @param by
