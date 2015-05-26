@@ -30,5 +30,5 @@ public interface SystemData {
 
 	public static final Field MEMEBER_LIST = sd.getField("会员列表");
 	public static final Field ADD_MEMEBER = sd.getField("添加会员");
-
+	public static final Field IMPORT_GOODS_INFO = sd.getField("商品信息导入");
 }

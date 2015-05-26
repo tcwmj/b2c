@@ -5,19 +5,35 @@ import static org.testng.Assert.assertEquals;
 import java.awt.AWTException;
 import java.awt.Robot;
 import java.io.File;
+import java.io.IOException;
 import java.lang.reflect.Method;
 import java.net.MalformedURLException;
+import java.net.URI;
 import java.net.URL;
 import java.util.List;
 import java.util.Properties;
+import java.util.Set;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpRequestBase;
+import org.apache.http.client.params.ClientPNames;
+import org.apache.http.client.protocol.ClientContext;
+import org.apache.http.impl.client.BasicCookieStore;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.impl.cookie.BasicClientCookie;
+import org.apache.http.params.HttpParams;
+import org.apache.http.protocol.BasicHttpContext;
 import org.apache.log4j.Logger;
 import org.daoefang.b2c.utils.ColorHelper;
 import org.daoefang.b2c.utils.Helper;
 import org.daoefang.b2c.utils.Property;
+import org.daoefang.b2c.utils.RequestMethod;
+import org.daoefang.b2c.utils.TestCase;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Cookie;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.NoSuchElementException;
@@ -57,6 +73,7 @@ import com.thoughtworks.selenium.webdriven.JavascriptLibrary;
  * @author Kenny Wang
  * 
  */
+@SuppressWarnings("deprecation")
 public class Driver {
 	protected Logger logger = Logger.getLogger(this.getClass());
 
@@ -90,6 +107,8 @@ public class Driver {
 	}
 
 	private Wait<WebDriver> wait;
+
+	private HttpClient client;
 
 	public Driver(String os, String os_version, String browser,
 			String browser_version, String resolution, String frontend_url,
@@ -682,7 +701,7 @@ public class Driver {
 		action.moveToElement(element).contextClick().build().perform();
 		waitDocumentReady();
 	}
-	
+
 	/**
 	 * @param by
 	 * @return
@@ -1501,5 +1520,73 @@ public class Driver {
 		if (!actual.equals(expected))
 			appendVerificationMessage("verify equal failed, actual [" + actual
 					+ "], expected [" + expected + "]");
+	}
+
+	/**
+	 * Download a file from the specified URI
+	 * 
+	 * @param testcase
+	 * @param uri
+	 * @param extension
+	 * @return
+	 * @throws IOException
+	 */
+	public File downloadFile(TestCase testcase, URI uri, String extension)
+			throws IOException {
+		String filePath = "target/data/" + testcase.getClass().getSimpleName()
+				+ "_" + Helper.randomize() + "." + extension;
+		File downloadedFile = new File(filePath);
+
+		HttpResponse fileToDownload = getHTTPResponse(uri);
+
+		try {
+			FileUtils.copyInputStreamToFile(fileToDownload.getEntity()
+					.getContent(), downloadedFile);
+		} finally {
+			fileToDownload.getEntity().getContent().close();
+		}
+
+		return downloadedFile;
+	}
+
+	/**
+	 * Load in all the cookies WebDriver currently knows about so that we can
+	 * mimic the browser cookie state
+	 * 
+	 * @param seleniumCookieSet
+	 *            Set&lt;Cookie&gt;
+	 */
+	private BasicCookieStore mimicCookieState(Set<Cookie> seleniumCookieSet) {
+		BasicCookieStore copyOfWebDriverCookieStore = new BasicCookieStore();
+		for (Cookie seleniumCookie : seleniumCookieSet) {
+			BasicClientCookie duplicateCookie = new BasicClientCookie(
+					seleniumCookie.getName(), seleniumCookie.getValue());
+			duplicateCookie.setDomain(seleniumCookie.getDomain());
+			duplicateCookie.setSecure(seleniumCookie.isSecure());
+			duplicateCookie.setExpiryDate(seleniumCookie.getExpiry());
+			duplicateCookie.setPath(seleniumCookie.getPath());
+			copyOfWebDriverCookieStore.addCookie(duplicateCookie);
+		}
+
+		return copyOfWebDriverCookieStore;
+	}
+
+	private HttpResponse getHTTPResponse(URI uri) throws IOException,
+			NullPointerException {
+		client = new DefaultHttpClient();
+		BasicHttpContext localContext = new BasicHttpContext();
+		localContext.setAttribute(ClientContext.COOKIE_STORE,
+				mimicCookieState(driver.manage().getCookies()));
+
+		RequestMethod httpRequestMethod = RequestMethod.GET;
+		boolean followRedirects = true;
+
+		HttpRequestBase requestMethod = httpRequestMethod.getRequestMethod();
+		requestMethod.setURI(uri);
+		HttpParams httpRequestParameters = requestMethod.getParams();
+		httpRequestParameters.setParameter(ClientPNames.HANDLE_REDIRECTS,
+				followRedirects);
+		requestMethod.setParams(httpRequestParameters);
+		return client.execute(requestMethod, localContext);
 	}
 }

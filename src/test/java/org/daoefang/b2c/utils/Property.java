@@ -37,7 +37,7 @@ public class Property {
 
 	public static final String FRONTEND_URL = getProperty("url.frontend");
 	public static final String BACKEND_URL = getProperty("url.backend");
-	public static final String CAPTCHA_URL = getProperty("url.captcha");
+	public static final String GOODS_TEMPLATE_URI = getProperty("url.goods.template");
 	public static final String LANG = getProperty("lang");
 	public static final String FIRST_TEST_METHOD = getProperty("firstTestMethod");
 

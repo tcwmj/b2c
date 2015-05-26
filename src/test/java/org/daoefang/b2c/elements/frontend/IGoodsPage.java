@@ -6,7 +6,7 @@ import org.openqa.selenium.By;
  * @author Kenny Wang
  * 
  */
-public interface IGoodPage extends IFrontendPage {
+public interface IGoodsPage extends IFrontendPage {
 	public static final By ADD_TO_CART = By.id("joinCarButton");
 	/**
 	 * 去购物车结算按钮

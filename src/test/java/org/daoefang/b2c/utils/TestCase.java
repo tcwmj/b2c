@@ -8,10 +8,11 @@ import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
 import org.daoefang.b2c.bean.DataBean;
 import org.daoefang.b2c.bean.SystemData;
+import org.daoefang.b2c.pages.backend.GoodsManagementPage;
 import org.daoefang.b2c.pages.backend.LoginPage;
 import org.daoefang.b2c.pages.backend.MemberManagementPage;
 import org.daoefang.b2c.pages.backend.SiteConfigurationPage;
-import org.daoefang.b2c.pages.frontend.GoodPage;
+import org.daoefang.b2c.pages.frontend.GoodsPage;
 import org.daoefang.b2c.pages.frontend.HomePage;
 import org.daoefang.b2c.utils.selenium.Driver;
 import org.testng.Assert;
@@ -213,6 +214,7 @@ public class TestCase implements SystemData {
 		private LoginPage loginPage;
 		private SiteConfigurationPage siteConfigurationPage;
 		private MemberManagementPage memberManagementPage;
+		private GoodsManagementPage goodsManagementPage;
 
 		/**
 		 * @return the homePage
@@ -233,6 +235,15 @@ public class TestCase implements SystemData {
 		}
 
 		/**
+		 * @return the GoodsManagementPage
+		 */
+		public GoodsManagementPage goodsManagement() {
+			if (goodsManagementPage == null)
+				goodsManagementPage = new GoodsManagementPage(driver);
+			return goodsManagementPage;
+		}
+
+		/**
 		 * @return the MemberManagementPage
 		 */
 		public MemberManagementPage memberManagement() {
@@ -244,7 +255,7 @@ public class TestCase implements SystemData {
 
 	protected class Frontend {
 		private HomePage homePage;
-		private GoodPage goodPage;
+		private GoodsPage goodPage;
 
 		/**
 		 * @return the homePage
@@ -258,9 +269,9 @@ public class TestCase implements SystemData {
 		/**
 		 * @return the goodPage
 		 */
-		public GoodPage good() {
+		public GoodsPage good() {
 			if (goodPage == null)
-				goodPage = new GoodPage(driver);
+				goodPage = new GoodsPage(driver);
 			return goodPage;
 		}
 	}

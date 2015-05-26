@@ -7,6 +7,7 @@
 	<!-- 后台数据 -->
 	<field name="会员列表">会员管理&gt;会员列表</field>
 	<field name="添加会员">会员管理&gt;添加会员</field>
+	<field name="商品信息导入">商品管理&gt;商品信息导入</field>
 	
 	<field name="invalid_captcha">"验证码不正确"</field>
 	<field name="invalid_phone_number">手机必须填写！</field>

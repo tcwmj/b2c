@@ -9,6 +9,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStreamWriter;
+import java.net.URI;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -19,6 +20,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
+import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -357,4 +359,32 @@ public class Helper {
 			e.printStackTrace();
 		}
 	}
+
+	/**
+	 * Performs a expectedFileHash check on a File.
+	 * 
+	 * @param uri
+	 * @param hash
+	 * @param hashType
+	 * @throws IOException
+	 */
+	public static void assertFileHash(URI uri, String hash, HashType hashType)
+			throws IOException {
+		File file = new File(uri);
+		String actualFileHash = "";
+
+		switch (hashType) {
+		case MD5:
+			actualFileHash = DigestUtils.md5Hex(new FileInputStream(file))
+					.toLowerCase();
+			break;
+		case SHA1:
+			actualFileHash = DigestUtils.shaHex(new FileInputStream(file))
+					.toLowerCase();
+			break;
+		}
+
+		Assert.assertEquals(actualFileHash, hash.toLowerCase());
+	}
+
 }

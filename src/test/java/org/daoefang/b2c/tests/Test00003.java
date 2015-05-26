@@ -1,6 +1,6 @@
 package org.daoefang.b2c.tests;
 
-import org.daoefang.b2c.elements.frontend.IGoodPage;
+import org.daoefang.b2c.elements.frontend.IGoodsPage;
 import org.daoefang.b2c.utils.TestCase;
 import org.openqa.selenium.By;
 import org.testng.annotations.Test;
@@ -41,9 +41,9 @@ public class Test00003 extends TestCase {
 	public void step060() {
 		driver.click(By.xpath(td.getField("iphone6").getValue()));
 		driver.switchToWindow();
-		driver.click(IGoodPage.ADD_TO_CART);
-		driver.click(IGoodPage.GOTO_SHOPPING_CART);
-		driver.click(IGoodPage.CLEAR_SHOPPING_CART);
+		driver.click(IGoodsPage.ADD_TO_CART);
+		driver.click(IGoodsPage.GOTO_SHOPPING_CART);
+		driver.click(IGoodsPage.CLEAR_SHOPPING_CART);
 		driver.dismissAlert();
 	}
 
