@@ -673,6 +673,18 @@ public class Driver {
 
 	/**
 	 * @param by
+	 */
+	public void contextClick(By by) {
+		logger.debug("Try to move mouse to " + by.toString());
+		WebElement element = wait.until(ExpectedConditions
+				.visibilityOf(findElement(by)));
+		Actions action = new Actions(driver);
+		action.moveToElement(element).contextClick().build().perform();
+		waitDocumentReady();
+	}
+	
+	/**
+	 * @param by
 	 * @return
 	 */
 	public boolean isPresent(By by) {

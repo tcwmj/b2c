@@ -1,6 +1,5 @@
 package org.daoefang.b2c.tests;
 
-import org.daoefang.b2c.bean.SystemData;
 import org.daoefang.b2c.utils.TestCase;
 import org.testng.annotations.Test;
 
@@ -18,7 +17,7 @@ public class Test00001 extends TestCase {
 
 	@Test(description = "使用万能验证码登录")
 	public void step020() {
-		backend.home().login(SystemData.ADMIN);
+		backend.home().login(ADMIN);
 		backend.siteConfiguration().logout();
 	}
 
