@@ -1430,7 +1430,12 @@ public class Driver {
 			if (displayed.equals(isContains(text)))
 				break;
 		}
-		Assert.assertEquals(isContains(text), displayed);
+		try {
+			Assert.assertEquals(isContains(text), displayed);
+		} catch (AssertionError e) {
+			String message = "assert text [" + text + "] displayed on the page";
+			new AssertionError(message, e);
+		}
 	}
 
 	/**

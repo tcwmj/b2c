@@ -13,27 +13,22 @@
 	<test name="thread-1">
 		<parameter name="os" value="windows" />
 		<parameter name="os_version" value="7" />
-		<parameter name="browser" value="ie" />
+		<parameter name="browser" value="firefox" />
 		<parameter name="browser_version" value="8" />
 		<parameter name="resolution" value="1024x768" />
 		<parameter name="frontend_url" value="http://localhost:88/index.php" />
 		<parameter name="backend_url"
 			value="http://localhost:88/index.php?m=admin&amp;c=public&amp;a=login" />
-		<classes>
-			<class name="org.daoefang.b2c.tests.backend.Test00001">
-				<methods>
-					<include name="step010"></include>
-					<!-- <exclude name="step020"></exclude> -->
-					<!-- <include name="step030"></include> -->
-					<include name="step040"></include>
-				</methods>
-			</class>
-			<!-- <class name="org.daoefang.b2c.tests.backend.Test30000" /> -->
-		</classes>
-		<!-- <packages> <package name="org.daoefang.b2c.tests.backend" /> </packages> -->
-		<!-- <classes> <class name="org.daoefang.b2c.tests.backend.Test30093"> 
-			<methods> <exclude name="step(0[2-9]\d)|step(1[0-8]\d)"></exclude> </methods> 
-			</class> <class name="org.daoefang.b2c.tests.backend.Test00001" /> </classes> -->
+		<!-- <classes> <class name="org.daoefang.b2c.tests.Test00003"> <methods> 
+			<include name="step010"></include> <exclude name="step020"></exclude> <include 
+			name="step050"></include> <include name="step060"></include> </methods> </class> 
+			</classes> -->
+		<packages>
+			<package name="org.daoefang.b2c.tests" />
+		</packages>
+		<!-- <classes> <class name="org.daoefang.b2c.tests.Test30093"> <methods> 
+			<exclude name="step(0[2-9]\d)|step(1[0-8]\d)"></exclude> </methods> </class> 
+			<class name="org.daoefang.b2c.tests.Test00001" /> </classes> -->
 	</test>
 
 	<!-- <test name="thread-2"> <parameter name="os" value="windows" /> <parameter 

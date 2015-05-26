@@ -347,8 +347,10 @@ public class Helper {
 	 */
 	public static void writeFile(File file, String content) {
 		try {
-			if (!file.exists())
+			if (!file.exists()) {
+				file.getParentFile().mkdirs();
 				file.createNewFile();
+			}
 			OutputStreamWriter write = new OutputStreamWriter(
 					new FileOutputStream(file), "UTF-8");
 			BufferedWriter writer = new BufferedWriter(write);
