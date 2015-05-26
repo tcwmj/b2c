@@ -1,12 +1,13 @@
-package org.daoefang.b2c.tests.backend;
+package org.daoefang.b2c.tests;
 
 import org.daoefang.b2c.bean.SystemData;
-import org.daoefang.b2c.tests.TestCase;
+import org.daoefang.b2c.utils.TestCase;
 import org.testng.annotations.Test;
 
 /**
- * @author Kenny Wang
+ * 验证码的解决方案
  * 
+ * @author Kenny Wang
  */
 public class Test00001 extends TestCase {
 

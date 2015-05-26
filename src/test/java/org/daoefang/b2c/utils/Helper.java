@@ -23,7 +23,6 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.apache.xml.utils.DefaultErrorHandler;
-import org.daoefang.b2c.tests.TestCase;
 import org.hamcrest.MatcherAssert;
 import org.testng.Assert;
 import org.xml.sax.SAXException;

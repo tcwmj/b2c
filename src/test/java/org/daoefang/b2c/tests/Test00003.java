@@ -1,13 +1,14 @@
-package org.daoefang.b2c.tests.hybrid;
+package org.daoefang.b2c.tests;
 
 import org.daoefang.b2c.elements.frontend.IGoodPage;
-import org.daoefang.b2c.tests.TestCase;
+import org.daoefang.b2c.utils.TestCase;
 import org.openqa.selenium.By;
 import org.testng.annotations.Test;
 
 /**
- * @author Kenny Wang
+ * 弹出框的解决方案
  * 
+ * @author Kenny Wang
  */
 public class Test00003 extends TestCase {
 

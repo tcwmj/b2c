@@ -1,16 +1,17 @@
-package org.daoefang.b2c.tests.backend;
+package org.daoefang.b2c.tests;
 
 import java.util.List;
 
 import org.daoefang.b2c.bean.Member;
 import org.daoefang.b2c.elements.backend.IMemberManagementPage;
-import org.daoefang.b2c.tests.TestCase;
+import org.daoefang.b2c.utils.TestCase;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 /**
- * @author Kenny Wang
+ * 数据驱动的使用方法
  * 
+ * @author Kenny Wang
  */
 public class Test00002 extends TestCase {
 

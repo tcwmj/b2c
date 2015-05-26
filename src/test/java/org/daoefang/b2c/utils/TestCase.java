@@ -1,4 +1,4 @@
-package org.daoefang.b2c.tests;
+package org.daoefang.b2c.utils;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -13,9 +13,6 @@ import org.daoefang.b2c.pages.backend.MemberManagementPage;
 import org.daoefang.b2c.pages.backend.SiteConfigurationPage;
 import org.daoefang.b2c.pages.frontend.GoodPage;
 import org.daoefang.b2c.pages.frontend.HomePage;
-import org.daoefang.b2c.utils.Helper;
-import org.daoefang.b2c.utils.JaxbHelper;
-import org.daoefang.b2c.utils.Property;
 import org.daoefang.b2c.utils.selenium.Driver;
 import org.testng.Reporter;
 import org.testng.annotations.AfterClass;

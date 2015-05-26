@@ -1,6 +1,6 @@
 package org.daoefang.b2c.bean;
 
-import static org.daoefang.b2c.tests.TestCase.sd;
+import static org.daoefang.b2c.utils.TestCase.sd;
 
 /**
  * @author Kenny Wang
