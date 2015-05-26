@@ -1007,13 +1007,13 @@ public class Driver {
 	 */
 	public void assertBackgroundColor(By by, String color) {
 		String rgbColor = getCSSAttribute(by, "backgroundColor");
-		String hexColor = ColorHelper.RGBAtoHex(rgbColor);
+		String hexColor = ColorHelper.RGBAtoHex(rgbColor).toLowerCase();
 		try {
-			assertEquals(hexColor.toLowerCase(), color.toLowerCase());
+			assertEquals(hexColor, color.toLowerCase());
 		} catch (AssertionError e) {
 			String message = "assert background color of locator "
 					+ by.toString() + ", actual [" + hexColor + "], expected ["
-					+ color + "]";
+					+ color.toLowerCase() + "]";
 			throw new AssertionError(message);
 		}
 	}

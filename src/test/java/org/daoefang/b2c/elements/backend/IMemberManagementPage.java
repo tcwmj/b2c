@@ -15,4 +15,11 @@ public interface IMemberManagementPage extends IBackendPage {
 	// public static final By EMAIL = By.name("email");
 	public static final By QQ = By.name("qq");
 	// public static final By SUBMIT = By.className("button_search");
+
+	public static final By CALENDAR_YEAR = By.id("laydate_y");
+	public static final By CALENDAR_YEAR_CLICK = By
+			.xpath("//ul[@id='laydate_ys']/li[@class='laydate_click']");
+	public static final By CALENDAR_MONTH = By.id("laydate_m");
+	public static final By CALENDAR_MONTH_CLICK = By
+			.xpath("//div[@id='laydate_ms']/span[@class='laydate_click']");
 }
