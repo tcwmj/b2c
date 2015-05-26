@@ -9,9 +9,11 @@ import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
 import org.daoefang.b2c.bean.DataBean;
 import org.daoefang.b2c.bean.SystemData;
-import org.daoefang.b2c.pages.backend.HomePage;
+import org.daoefang.b2c.pages.backend.LoginPage;
 import org.daoefang.b2c.pages.backend.MemberManagementPage;
 import org.daoefang.b2c.pages.backend.SiteConfigurationPage;
+import org.daoefang.b2c.pages.frontend.GoodPage;
+import org.daoefang.b2c.pages.frontend.HomePage;
 import org.daoefang.b2c.utils.Helper;
 import org.daoefang.b2c.utils.JaxbHelper;
 import org.daoefang.b2c.utils.Property;
@@ -213,17 +215,17 @@ public class TestCase implements SystemData {
 
 	protected class Backend {
 
-		private HomePage homePage;
+		private LoginPage loginPage;
 		private SiteConfigurationPage siteConfigurationPage;
 		private MemberManagementPage memberManagementPage;
 
 		/**
 		 * @return the homePage
 		 */
-		public HomePage home() {
-			if (homePage == null)
-				homePage = new HomePage(driver);
-			return homePage;
+		public LoginPage home() {
+			if (loginPage == null)
+				loginPage = new LoginPage(driver);
+			return loginPage;
 		}
 
 		/**
@@ -247,7 +249,7 @@ public class TestCase implements SystemData {
 
 	protected class Frontend {
 		private HomePage homePage;
-		private SiteConfigurationPage welcomePage;
+		private GoodPage goodPage;
 
 		/**
 		 * @return the homePage
@@ -259,12 +261,12 @@ public class TestCase implements SystemData {
 		}
 
 		/**
-		 * @return the welcomePage
+		 * @return the goodPage
 		 */
-		public SiteConfigurationPage welcome() {
-			if (welcomePage == null)
-				welcomePage = new SiteConfigurationPage(driver);
-			return welcomePage;
+		public GoodPage good() {
+			if (goodPage == null)
+				goodPage = new GoodPage(driver);
+			return goodPage;
 		}
 	}
 

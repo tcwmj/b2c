@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <dataBean xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:noNamespaceSchemaLocation="../config/dataBean.xsd">
+	<!-- 前台数据 -->
+	<field name="手机分类">手机、数码、通讯>手机</field>
+	
+	<!-- 后台数据 -->
 	<field name="会员列表">会员管理&gt;会员列表</field>
 	<field name="添加会员">会员管理&gt;添加会员</field>
 	
+	<field name="invalid_captcha">"验证码不正确"</field>
 	<field name="invalid_phone_number">手机必须填写！</field>
 	<field name="invalid_email">邮箱格式错误！</field>
 	

@@ -13,13 +13,15 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = { "field", "loginCredential", "member" })
+@XmlType(name = "", propOrder = { "field", "loginCredential", "member",
+		"password" })
 @XmlRootElement(name = "dataBean")
 public class DataBean {
 
 	protected List<Field> field;
 	protected List<LoginCredential> loginCredential;
 	protected List<Member> member;
+	protected List<Password> password;
 
 	public List<Field> getField() {
 		if (field == null) {
@@ -92,6 +94,31 @@ public class DataBean {
 			element = new Member();
 			element.setName(name);
 			this.getMember().add(element);
+		}
+		return element;
+	}
+
+	public List<Password> getPassword() {
+		if (password == null) {
+			password = new ArrayList<Password>();
+		}
+		return this.password;
+	}
+
+	public Password getPassword(String name) {
+		for (Password element : this.getPassword()) {
+			if (element.getName().equals(name))
+				return element;
+		}
+		return null;
+	}
+
+	public Password setPassword(String name) {
+		Password element = getPassword(name);
+		if (element == null) {
+			element = new Password();
+			element.setName(name);
+			this.getPassword().add(element);
 		}
 		return element;
 	}

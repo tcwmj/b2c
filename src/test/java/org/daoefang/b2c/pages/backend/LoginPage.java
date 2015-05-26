@@ -9,9 +9,9 @@ import org.daoefang.b2c.utils.selenium.Driver;
  * @author Kenny Wang
  * 
  */
-public final class HomePage extends BackendPage implements IHomePage {
+public final class LoginPage extends BackendPage implements IHomePage {
 
-	public HomePage(Driver driver) {
+	public LoginPage(Driver driver) {
 		super(driver);
 	}
 

@@ -30,6 +30,6 @@ public class Test00001 extends TestCase {
 	@Test(description = "使用错误验证码登录")
 	public void step040() {
 		backend.home().login(td.getLoginCredential("invalid"));
-		backend.home().assertTextDisplayed("验证码不正确", true);
+		backend.home().assertTextDisplayed(INVALID_CAPTCHA.getValue(), true);
 	}
 }

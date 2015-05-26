@@ -3,6 +3,7 @@
 	<xs:include schemaLocation="definition.xsd"/>
 	<xs:include schemaLocation="loginCredential.xsd"/>
 	<xs:include schemaLocation="member.xsd"/>
+	<xs:include schemaLocation="password.xsd"/>
 	<xs:element name="dataBean">
 		<xs:complexType>
 			<xs:sequence>
@@ -11,6 +12,7 @@
 				<!-- login -->
 				<xs:element ref="loginCredential" minOccurs="0" maxOccurs="unbounded"/>
 				<xs:element ref="member" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="password" minOccurs="0" maxOccurs="unbounded"/>
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>

@@ -60,7 +60,7 @@ public class Test00002 extends TestCase {
 			backend.memberManagement().assertMemberList(member, true);
 	}
 
-	@Test(description = "使用后台验证码接口登录")
+	@Test(description = "退出登录")
 	public void step040() {
 		backend.memberManagement().logout();
 	}

@@ -1,6 +1,7 @@
 package org.daoefang.b2c.pages.backend;
 
 import org.daoefang.b2c.bean.Field;
+import org.daoefang.b2c.bean.Password;
 import org.daoefang.b2c.bean.SystemData;
 import org.daoefang.b2c.elements.backend.IBackendPage;
 import org.daoefang.b2c.pages.Page;
@@ -43,5 +44,26 @@ public class BackendPage extends Page implements IBackendPage {
 
 	public void logout() {
 		driver.click(LOGOUT);
+	}
+
+	/**
+	 * 更改后台系统管理员密码
+	 * 
+	 * @param password
+	 */
+	public void changePassword(Password password) {
+		driver.click(CHANGE_PASSWORD);
+		switchToFrame();
+		if (password.getOldPassword() != null)
+			driver.input(OLD_PASSWORD, password.getOldPassword());
+		if (password.getNewPassword() != null)
+			driver.input(NEW_PASSWORD, password.getNewPassword());
+		if (password.getConfirmPassword() != null)
+			driver.input(CONFIRM_PASSWORD, password.getConfirmPassword());
+		if (password.getEmail() != null)
+			driver.input(EMAIL, password.getEmail());
+		driver.click(SUBMIT);
+		driver.acceptAlert();
+		switchToDefault();
 	}
 }
