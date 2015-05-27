@@ -1,34 +1,55 @@
 package org.daoefang.b2c.tests;
 
+import java.awt.AWTException;
+import java.awt.Robot;
+import java.awt.event.KeyEvent;
+
 import org.daoefang.b2c.utils.TestCase;
-import org.testng.Assert;
+import org.openqa.selenium.By;
 import org.testng.annotations.Test;
 
 /**
- * 断言和验证
+ * 右键操作解决方案
  * 
  * @author Kenny Wang
  */
 public class Test00007 extends TestCase {
 
-	@Test(description = "验证pass")
+	@Test(description = "导航到后台登录界面")
 	public void step010() {
-		driver.verifyEqual("abc", "abc");
+		frontend.home().navigateTo();
 	}
 
-	@Test(description = "验证fail")
-	public void step020() {
-		driver.verifyEqual("123", "1234");
-	}
+	@Test(description = "使用后台验证码接口登录")
+	public void step020() throws InterruptedException, AWTException {
+		By by = By
+				.xpath("//img[@src='/uploadfile/image/20150519/1432027851524213.jpg']");
+		driver.contextClick(by);
 
-	@Test(description = "断言pass")
-	public void step030() {
-		Assert.assertEquals("hello", "hello");
-	}
+		Thread.sleep(5000);
 
-	@Test(description = "断言fail")
-	public void step040() {
-		Assert.assertEquals("ho", "hi");
+		Robot robot = new Robot();
+
+		// This will bring the selection down one by one
+		robot.keyPress(KeyEvent.VK_DOWN);
+		Thread.sleep(1000);
+		robot.keyPress(KeyEvent.VK_DOWN);
+		Thread.sleep(1000);
+		// robot.keyPress(KeyEvent.VK_DOWN);
+		// Thread.sleep(1000);
+		// robot.keyPress(KeyEvent.VK_DOWN);
+		// Thread.sleep(1000);
+
+		// robot.keyPress(KeyEvent.VK_DOWN);
+
+		// Thread.sleep(1000);
+
+		// This is to release the down key, before this enter will not work
+		// robot.keyRelease(KeyEvent.VK_DOWN);
+		// Thread.sleep(1000);
+		robot.keyPress(KeyEvent.VK_ENTER);
+		driver.switchToWindow();
+		Thread.sleep(5000);
 	}
 
 }

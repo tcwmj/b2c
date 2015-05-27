@@ -85,20 +85,6 @@ public class Driver {
 	public String downloaddir;
 	public String frontend_url;
 	public String backend_url;
-	private String verificationMessage = "";
-
-	public String getVerificationMessage() {
-		return verificationMessage;
-	}
-
-	public void setVerificationMessage(String verificationMessage) {
-		this.verificationMessage = verificationMessage;
-	}
-
-	public void appendVerificationMessage(String verificationMessage) {
-		this.verificationMessage = this.verificationMessage + "\n"
-				+ verificationMessage;
-	}
 
 	private WebDriver driver;
 
@@ -1519,12 +1505,6 @@ public class Driver {
 			// e.printStackTrace();
 		}
 		return we;
-	}
-
-	public void verifyEqual(String actual, String expected) {
-		if (!actual.equals(expected))
-			appendVerificationMessage("verify equal failed, actual [" + actual
-					+ "], expected [" + expected + "]");
 	}
 
 	/**
