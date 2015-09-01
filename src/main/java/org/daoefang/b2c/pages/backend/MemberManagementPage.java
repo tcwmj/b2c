@@ -9,7 +9,7 @@ import java.util.Date;
 
 import org.daoefang.b2c.bean.Member;
 import org.daoefang.b2c.elements.backend.IMemberManagementPage;
-import org.daoefang.b2c.utils.selenium.Driver;
+import org.daoefang.b2c.selenium.Driver;
 import org.openqa.selenium.By;
 
 public class MemberManagementPage extends BackendPage implements

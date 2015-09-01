@@ -1,7 +1,7 @@
 package org.daoefang.b2c.pages;
 
 import org.daoefang.b2c.elements.IPage;
-import org.daoefang.b2c.utils.selenium.Driver;
+import org.daoefang.b2c.selenium.Driver;
 import org.openqa.selenium.By;
 
 public class Page implements IPage {

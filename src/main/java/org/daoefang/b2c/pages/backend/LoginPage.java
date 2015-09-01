@@ -3,7 +3,7 @@ package org.daoefang.b2c.pages.backend;
 import org.daoefang.b2c.bean.LoginCredential;
 import org.daoefang.b2c.bean.SystemData;
 import org.daoefang.b2c.elements.backend.ILoginPage;
-import org.daoefang.b2c.utils.selenium.Driver;
+import org.daoefang.b2c.selenium.Driver;
 
 /**
  * @author Kenny Wang

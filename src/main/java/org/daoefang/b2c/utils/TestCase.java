@@ -14,7 +14,7 @@ import org.daoefang.b2c.pages.backend.MemberManagementPage;
 import org.daoefang.b2c.pages.backend.SiteConfigurationPage;
 import org.daoefang.b2c.pages.frontend.GoodsPage;
 import org.daoefang.b2c.pages.frontend.HomePage;
-import org.daoefang.b2c.utils.selenium.Driver;
+import org.daoefang.b2c.selenium.Driver;
 import org.testng.Reporter;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;

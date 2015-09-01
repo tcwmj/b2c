@@ -5,7 +5,7 @@ import org.daoefang.b2c.bean.Password;
 import org.daoefang.b2c.bean.SystemData;
 import org.daoefang.b2c.elements.backend.IBackendPage;
 import org.daoefang.b2c.pages.Page;
-import org.daoefang.b2c.utils.selenium.Driver;
+import org.daoefang.b2c.selenium.Driver;
 import org.openqa.selenium.By;
 
 public class BackendPage extends Page implements IBackendPage {

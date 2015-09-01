@@ -1,4 +1,4 @@
-package org.daoefang.b2c.utils.selenium;
+package org.daoefang.b2c.selenium;
 
 import static org.testng.Assert.assertEquals;
 

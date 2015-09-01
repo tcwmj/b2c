@@ -1,4 +1,4 @@
-package org.daoefang.b2c.utils.testng;
+package org.daoefang.b2c.testng;
 
 //import java.io.File;
 

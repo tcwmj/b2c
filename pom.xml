@@ -116,6 +116,10 @@
 	</dependencies>
 
 	<build>
+		<!-- <sourceDirectory>src/main/java</sourceDirectory> <testSourceDirectory>src/test/java</testSourceDirectory> 
+			<resources> <resource> <directory>src/main/java</directory> <excludes> <exclude>**/*.java</exclude> 
+			</excludes> </resource> <resource> <directory>src/test/java</directory> <filtering>true</filtering> 
+			<includes> <include>log4j.properties</include> </includes> </resource> </resources> -->
 		<resources>
 			<resource>
 				<directory>src/test/java</directory>
@@ -125,14 +129,41 @@
 				</includes>
 			</resource>
 		</resources>
+
 		<plugins>
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+				<version>0.7.5.201505241946</version>
+				<executions>
+					<execution>
+						<id>default-prepare-agent</id>
+						<goals>
+							<goal>prepare-agent</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>default-report</id>
+						<phase>prepare-package</phase>
+						<goals>
+							<goal>report</goal>
+						</goals>
+					</execution>
+					<!-- <execution> <id>default-check</id> <goals> <goal>check</goal> </goals> 
+						<configuration> <rules> <rule implementation="org.jacoco.maven.RuleConfiguration"> 
+						<element>BUNDLE</element> <limits> <limit implementation="org.jacoco.report.check.Limit"> 
+						<counter>COMPLEXITY</counter> <value>COVEREDRATIO</value> <minimum>0.60</minimum> 
+						</limit> </limits> </rule> </rules> </configuration> </execution> -->
+				</executions>
+			</plugin>
+
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
 				<version>2.17</version>
 				<configuration>
 					<forkMode>once</forkMode>
-					<argLine>-Dfile.encoding=UTF-8</argLine>
+					<!-- <argLine>-Dfile.encoding=UTF-8</argLine> -->
 					<suiteXmlFiles>
 						<!-- <suiteXmlFile>config/${xmlFileName}</suiteXmlFile> -->
 						<suiteXmlFile>config/testng.xml</suiteXmlFile>
@@ -145,7 +176,7 @@
 						</property>
 						<property>
 							<name>listener</name>
-							<value>org.uncommons.reportng.HTMLReporter,org.uncommons.reportng.JUnitXMLReporter,org.daoefang.b2c.utils.testng.HTMLReporter,org.daoefang.b2c.utils.testng.XLSReporter,org.daoefang.b2c.utils.testng.ResultListener,org.daoefang.b2c.utils.testng.RetryListener,org.daoefang.b2c.utils.testng.Hook</value>
+							<value>org.uncommons.reportng.HTMLReporter,org.uncommons.reportng.JUnitXMLReporter,org.daoefang.b2c.testng.HTMLReporter,org.daoefang.b2c.testng.XLSReporter,org.daoefang.b2c.testng.ResultListener,org.daoefang.b2c.testng.RetryListener,org.daoefang.b2c.testng.Hook</value>
 						</property>
 					</properties>
 					<systemPropertyVariables>
@@ -154,6 +185,15 @@
 					</systemPropertyVariables>
 					<!-- <workingDirectory>target/</workingDirectory> -->
 				</configuration>
+				<executions>
+					<execution>
+						<id>default-test</id>
+						<phase>test</phase>
+						<goals>
+							<goal>test</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 
 			<plugin>

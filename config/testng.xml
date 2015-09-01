@@ -4,10 +4,10 @@
 
 	<!-- <listeners> <listener class-name="org.uncommons.reportng.HTMLReporter" 
 		/> <listener class-name="org.uncommons.reportng.JUnitXMLReporter" /> <listener 
-		class-name="org.daoefang.b2c.utils.testng.HTMLReporter" /> <listener class-name="org.daoefang.b2c.utils.testng.XLSReporter" 
-		/> <listener class-name="org.daoefang.b2c.utils.testng.ResultListener" /> 
-		<listener class-name="org.daoefang.b2c.utils.testng.RetryListener" /> <listener 
-		class-name="org.daoefang.b2c.utils.testng.Hook" /> <listener class-name="org.daoefang.b2c.utils.testng.InvokedMethodListener" 
+		class-name="org.daoefang.b2c.testng.HTMLReporter" /> <listener class-name="org.daoefang.b2c.testng.XLSReporter" 
+		/> <listener class-name="org.daoefang.b2c.testng.ResultListener" /> 
+		<listener class-name="org.daoefang.b2c.testng.RetryListener" /> <listener 
+		class-name="org.daoefang.b2c.testng.Hook" /> <listener class-name="org.daoefang.b2c.testng.InvokedMethodListener" 
 		/> </listeners> -->
 
 	<test name="thread-1">
@@ -23,12 +23,15 @@
 			<include name="step010"></include> <exclude name="step020"></exclude> <include 
 			name="step050"></include> <include name="step060"></include> </methods> </class> 
 			</classes> -->
-		<packages>
-			<package name="org.daoefang.b2c.tests" />
-		</packages>
-		<!-- <classes> <class name="org.daoefang.b2c.tests.Test30093"> <methods> 
-			<exclude name="step(0[2-9]\d)|step(1[0-8]\d)"></exclude> </methods> </class> 
-			<class name="org.daoefang.b2c.tests.Test00001" /> </classes> -->
+		<!-- <packages> <package name="org.daoefang.b2c.tests" /> </packages> -->
+		<classes>
+			<!-- <class name="org.daoefang.b2c.tests.Test30093">
+				<methods>
+					<exclude name="step(0[2-9]\d)|step(1[0-8]\d)"></exclude>
+				</methods>
+			</class> -->
+			<class name="org.daoefang.b2c.tests.Test00001" />
+		</classes>
 	</test>
 
 	<!-- <test name="thread-2"> <parameter name="os" value="windows" /> <parameter 

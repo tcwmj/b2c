@@ -1,7 +1,7 @@
 package org.daoefang.b2c.pages.frontend;
 
 import org.daoefang.b2c.elements.frontend.IGoodsPage;
-import org.daoefang.b2c.utils.selenium.Driver;
+import org.daoefang.b2c.selenium.Driver;
 
 /**
  * @author Kenny Wang

@@ -1,4 +1,4 @@
-package org.daoefang.b2c.utils.testng;
+package org.daoefang.b2c.testng;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -8,7 +8,7 @@ import java.util.Iterator;
 import java.util.Set;
 
 import org.apache.log4j.Logger;
-import org.daoefang.b2c.utils.selenium.Driver;
+import org.daoefang.b2c.selenium.Driver;
 import org.testng.ITestContext;
 import org.testng.ITestResult;
 import org.testng.TestListenerAdapter;

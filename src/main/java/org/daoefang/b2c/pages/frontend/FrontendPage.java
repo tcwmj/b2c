@@ -2,7 +2,7 @@ package org.daoefang.b2c.pages.frontend;
 
 import org.daoefang.b2c.elements.frontend.IFrontendPage;
 import org.daoefang.b2c.pages.Page;
-import org.daoefang.b2c.utils.selenium.Driver;
+import org.daoefang.b2c.selenium.Driver;
 
 public class FrontendPage extends Page implements IFrontendPage {
 
