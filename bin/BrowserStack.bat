@@ -1,1 +1,0 @@
-BrowserStackLocal.exe -localIdentifier kennywang ZvArpeqpBMSpUgruB15g http://sha-col-aut2:8080/,8080,0
