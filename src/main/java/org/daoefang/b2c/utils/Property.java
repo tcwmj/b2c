@@ -66,16 +66,8 @@ public class Property {
 	public static final Boolean REMOTE = Boolean
 			.parseBoolean(getProperty("remote"));
 	public static final String FIREFOX_DIR = getProperty("path.firefox");
-	public static final String DOWNLOAD_WINXP_DIR = getProperty("path.download.xp");
-	public static final String DOWNLOAD_WINNT_DIR = getProperty("path.download.nt");
-	public static final String DOWNLOAD_OSX_DIR = getProperty("path.download.osx");
 
-	public static final String BROWSERSTACK_URL = getProperty("browserstackurl");
-	public static final String PROJECT = getProperty("project");
-	public static final String BUILD = getProperty("build");
-	public static final String BROWSERSTACK_LOCAL = getProperty("browserstacklocal");
-	public static final String BROWSERSTACK_LOCAL_IDENTIFIER = getProperty("browserstacklocalIdentifier");
-	public static final String BROWSERSTACK_DEBUG = getProperty("browserstackdebug");
+	public static final String HUB_URL = getProperty("hub.url");
 
 	public static final String SOURCE_CODE_PATH = getProperty("sourceCode.path");
 	public static final String SOURCE_CODE_ENCODING = getProperty("sourceCode.encoding");

@@ -52,7 +52,7 @@ public class HTMLReporter extends CustomizedReporter {
 			logger.error("output file", e);
 			return;
 		}
-		// builder.setEncoding(Property.SOURCE_CODE_ENCODING);
+		builder.setEncoding(Property.SOURCE_CODE_ENCODING);
 		builder.addSourceTree(new File(Property.SOURCE_CODE_PATH));
 		startHtml(m_out);
 		generateSuiteSummaryReport(suites);
@@ -498,8 +498,8 @@ public class HTMLReporter extends CustomizedReporter {
 		out.println(".stripe td,.stripe th {background-color: #E6EBF9}");
 		out.println(".numi,.numi_attn {text-align:right}");
 		out.println(".total td {font-weight:bold}");
-		out.println(".passedodd td {background-color: #0A0}");
-		out.println(".passedeven td {background-color: #3F3}");
+		out.println(".passedodd td {background-color: #00FF00}");
+		out.println(".passedeven td {background-color: #99FF00}");
 		out.println(".skippedodd td {background-color: #CCC}");
 		out.println(".skippedodd td {background-color: #DDD}");
 		out.println(".failedodd td,.numi_attn {background-color: #F33}");

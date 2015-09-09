@@ -168,7 +168,7 @@
 						<!-- <suiteXmlFile>config/${xmlFileName}</suiteXmlFile> -->
 						<suiteXmlFile>config/testng.xml</suiteXmlFile>
 					</suiteXmlFiles>
-					<properties>
+					<!-- <properties>
 						<xmlFileName></xmlFileName>
 						<property>
 							<name>usedefaultlisteners</name>
@@ -178,7 +178,7 @@
 							<name>listener</name>
 							<value>org.uncommons.reportng.HTMLReporter,org.uncommons.reportng.JUnitXMLReporter,org.daoefang.b2c.testng.HTMLReporter,org.daoefang.b2c.testng.XLSReporter,org.daoefang.b2c.testng.ResultListener,org.daoefang.b2c.testng.RetryListener,org.daoefang.b2c.testng.Hook</value>
 						</property>
-					</properties>
+					</properties> -->
 					<systemPropertyVariables>
 						<org.uncommons.reportng.title>Colline Automation Test Report</org.uncommons.reportng.title>
 						<org.uncommons.reportng.escape-output>false</org.uncommons.reportng.escape-output>

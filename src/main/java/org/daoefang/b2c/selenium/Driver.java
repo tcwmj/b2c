@@ -11,7 +11,6 @@ import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URL;
 import java.util.List;
-import java.util.Properties;
 import java.util.Set;
 
 import org.apache.commons.io.FileUtils;
@@ -38,6 +37,7 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.OutputType;
+import org.openqa.selenium.Platform;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.TimeoutException;
@@ -82,9 +82,10 @@ public class Driver {
 	public String browser;
 	public String browser_version;
 	public String resolution;
-	public String downloaddir;
 	public String frontend_url;
 	public String backend_url;
+	public static final String DEFAULT_DOWNLOAD_FOLDER = System
+			.getProperty("user.home") + File.separator + "Downloads";
 
 	private WebDriver driver;
 
@@ -100,9 +101,8 @@ public class Driver {
 			String browser_version, String resolution, String frontend_url,
 			String backend_url) {
 		super();
-		this.os = (null == os) ? Property.WINDOWS : os;
-		this.os_version = (null == os_version) ? Property.WINDOWS_7
-				: os_version;
+		this.os = os;
+		this.os_version = os_version;
 		this.browser = (null == browser) ? Property.DEFAULT_BROSWER : browser;
 		this.browser_version = browser_version;
 		this.resolution = resolution;
@@ -111,13 +111,11 @@ public class Driver {
 		this.backend_url = (null == backend_url) ? Property.BACKEND_URL
 				: backend_url;
 
-		if (Property.REMOTE) {
+		if (Property.REMOTE)
 			driver = setupRemoteBrowser();
-			this.downloaddir = getRemoteDownloadDir();
-		} else {
+		else
 			driver = setupLocalBrowser();
-			this.downloaddir = getLocalDownloadDir();
-		}
+
 		// driver.manage().timeouts()
 		// .implicitlyWait(Property.TIMEOUT_INTERVAL, TimeUnit.SECONDS);
 		if (Property.MAXIMIZE_BROSWER)
@@ -131,28 +129,29 @@ public class Driver {
 
 	private WebDriver setupRemoteBrowser() {
 		DesiredCapabilities capability = new DesiredCapabilities();
-		if (os != null)
-			capability.setCapability("os", os);
+		switch (os) {
+		case "mac":
+			capability.setPlatform(Platform.MAC);
+		case "linux":
+			capability.setPlatform(Platform.LINUX);
+		case "windows":
+			capability.setPlatform(Platform.WINDOWS);
+		default:
+			capability.setPlatform(Platform.ANY);
+		}
 		if (os_version != null)
-			capability.setCapability("os_version", os_version);
-		capability.setCapability("browser", browser);
+			capability.setVersion(os_version);
+		if (browser != null)
+			capability.setBrowserName(browser);
 		if (browser_version != null)
 			capability.setCapability("browser_version", browser_version);
 		if (resolution != null)
 			capability.setCapability("resolution", resolution);
-		capability.setCapability("project", Property.PROJECT);
-		capability.setCapability("build", Property.BUILD);
-		capability.setCapability("browserstack.local",
-				Property.BROWSERSTACK_LOCAL);
-		capability.setCapability("browserstack.localIdentifier",
-				Property.BROWSERSTACK_LOCAL_IDENTIFIER);
-		capability.setCapability("browserstack.debug",
-				Property.BROWSERSTACK_DEBUG);
 		URL url = null;
 		try {
-			url = new URL(Property.BROWSERSTACK_URL);
+			url = new URL(Property.HUB_URL);
 		} catch (MalformedURLException e) {
-			logger.error("url " + Property.BROWSERSTACK_URL + " is malformed");
+			logger.error("url " + Property.HUB_URL + " is malformed");
 			e.printStackTrace();
 		}
 		RemoteWebDriver rwd = new RemoteWebDriver(url, capability);
@@ -248,40 +247,7 @@ public class Driver {
 	 * @return
 	 */
 	private Boolean isOSX64() {
-		Properties props = System.getProperties();
-		String arch = props.getProperty("os.arch");
-		return arch.contains("64");
-	}
-
-	/**
-	 * @return
-	 */
-	private String getRemoteDownloadDir() {
-		if (os == Property.OSX)
-			return Property.DOWNLOAD_OSX_DIR;
-		else {
-			if (os_version == Property.WINDOWS_XP)
-				return Property.DOWNLOAD_WINXP_DIR;
-			else
-				return Property.DOWNLOAD_WINNT_DIR;
-		}
-	}
-
-	/**
-	 * @return
-	 */
-	private String getLocalDownloadDir() {
-		Properties props = System.getProperties();
-		String osname = props.getProperty("os.name").toUpperCase();
-		String username = props.getProperty("user.name");
-		if (osname.compareTo(Property.WINDOWS) >= 0)
-			if (osname.compareTo(Property.WINDOWS_XP) >= 0)
-				return "C:/Documents and Settings/" + username
-						+ "/My Documents/Downloads";
-			else
-				return "C:/Users/" + username + "/Downloads";
-		else
-			return "/Users/" + username + "/Downloads";
+		return System.getProperty("os.arch").contains("64");
 	}
 
 	/**

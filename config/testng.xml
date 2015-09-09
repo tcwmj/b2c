@@ -2,34 +2,28 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="Suite" verbose="1" parallel="false" thread-count="1">
 
-	<!-- <listeners> <listener class-name="org.uncommons.reportng.HTMLReporter" 
-		/> <listener class-name="org.uncommons.reportng.JUnitXMLReporter" /> <listener 
-		class-name="org.daoefang.b2c.testng.HTMLReporter" /> <listener class-name="org.daoefang.b2c.testng.XLSReporter" 
-		/> <listener class-name="org.daoefang.b2c.testng.ResultListener" /> 
-		<listener class-name="org.daoefang.b2c.testng.RetryListener" /> <listener 
-		class-name="org.daoefang.b2c.testng.Hook" /> <listener class-name="org.daoefang.b2c.testng.InvokedMethodListener" 
-		/> </listeners> -->
+	<listeners>
+		<listener class-name="org.uncommons.reportng.HTMLReporter" />
+		<listener class-name="org.uncommons.reportng.JUnitXMLReporter" />
+		<listener class-name="org.daoefang.b2c.testng.HTMLReporter" />
+		<listener class-name="org.daoefang.b2c.testng.XLSReporter" />
+		<listener class-name="org.daoefang.b2c.testng.ResultListener" />
+		<listener class-name="org.daoefang.b2c.testng.RetryListener" />
+		<listener class-name="org.daoefang.b2c.testng.Hook" />
+		<!-- <listener class-name="org.daoefang.b2c.testng.InvokedMethodListener" 
+			/> -->
+	</listeners>
 
 	<test name="thread-1">
 		<parameter name="os" value="windows" />
-		<parameter name="os_version" value="7" />
+		<!-- <parameter name="os_version" value="7" /> -->
 		<parameter name="browser" value="firefox" />
-		<parameter name="browser_version" value="8" />
-		<parameter name="resolution" value="1024x768" />
+		<!-- <parameter name="browser_version" value="8" /> -->
+		<!-- <parameter name="resolution" value="1024x768" /> -->
 		<parameter name="frontend_url" value="http://localhost:88/index.php" />
 		<parameter name="backend_url"
 			value="http://localhost:88/index.php?m=admin&amp;c=public&amp;a=login" />
-		<!-- <classes> <class name="org.daoefang.b2c.tests.Test00003"> <methods> 
-			<include name="step010"></include> <exclude name="step020"></exclude> <include 
-			name="step050"></include> <include name="step060"></include> </methods> </class> 
-			</classes> -->
-		<!-- <packages> <package name="org.daoefang.b2c.tests" /> </packages> -->
 		<classes>
-			<!-- <class name="org.daoefang.b2c.tests.Test30093">
-				<methods>
-					<exclude name="step(0[2-9]\d)|step(1[0-8]\d)"></exclude>
-				</methods>
-			</class> -->
 			<class name="org.daoefang.b2c.tests.Test00001" />
 		</classes>
 	</test>
@@ -37,19 +31,21 @@
 	<!-- <test name="thread-2"> <parameter name="os" value="windows" /> <parameter 
 		name="os_version" value="7" /> <parameter name="browser" value="ie" /> <parameter 
 		name="browser_version" value="8" /> <parameter name="resolution" value="1024x768" 
-		/> <parameter name="url" value="http://sha-col-aut4:8080/"></parameter> <classes> 
-		<class name="org.daoefang.b2c.tests.backend.Test30091"></class> <class name="org.daoefang.b2c.tests.backend.Test30093"></class> 
-		</classes> </test> <test name="thread-3"> <parameter name="os" value="windows" 
-		/> <parameter name="os_version" value="7" /> <parameter name="browser" value="ie" 
-		/> <parameter name="browser_version" value="8" /> <parameter name="resolution" 
-		value="1024x768" /> <parameter name="url" value="http://sha-lri-pc-175:8080/"></parameter> 
-		<classes> <class name="org.daoefang.b2c.tests.backend.Test30120"></class> 
-		<class name="org.daoefang.b2c.tests.backend.Test30122"></class> </classes> 
-		</test> <test name="thread-4"> <parameter name="os" value="windows" /> <parameter 
+		/> <parameter name="frontend_url" value="http://localhost:88/index.php" /> 
+		<parameter name="backend_url" value="http://localhost:88/index.php?m=admin&amp;c=public&amp;a=login" 
+		/> <packages> <package name="org.daoefang.b2c.tests" /> </packages> </test> -->
+
+	<!-- <test name="thread-3"> <parameter name="os" value="windows" /> <parameter 
 		name="os_version" value="7" /> <parameter name="browser" value="ie" /> <parameter 
 		name="browser_version" value="8" /> <parameter name="resolution" value="1024x768" 
-		/> <parameter name="url" value="http://sha-lri-pc-116:8080/"></parameter> 
-		<classes> <class name="org.daoefang.b2c.tests.backend.Test30139"></class> 
-		<class name="org.daoefang.b2c.tests.backend.Test30177"></class> </classes> 
-		</test> -->
+		/> <parameter name="frontend_url" value="http://localhost:88/index.php" /> 
+		<parameter name="backend_url" value="http://localhost:88/index.php?m=admin&amp;c=public&amp;a=login" 
+		/> <packages> <package name="org.daoefang.b2c.tests" /> </packages> </test> -->
+
+	<!-- <test name="thread-4"> <parameter name="os" value="windows" /> <parameter 
+		name="os_version" value="7" /> <parameter name="browser" value="ie" /> <parameter 
+		name="browser_version" value="8" /> <parameter name="resolution" value="1024x768" 
+		/> <parameter name="frontend_url" value="http://localhost:88/index.php" /> 
+		<parameter name="backend_url" value="http://localhost:88/index.php?m=admin&amp;c=public&amp;a=login" 
+		/> <packages> <package name="org.daoefang.b2c.tests" /> </packages> </test> -->
 </suite>
