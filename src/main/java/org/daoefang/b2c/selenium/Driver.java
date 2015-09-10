@@ -52,6 +52,7 @@ import org.openqa.selenium.firefox.FirefoxProfile;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.remote.Augmenter;
+import org.openqa.selenium.remote.BrowserType;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.LocalFileDetector;
@@ -141,8 +142,12 @@ public class Driver {
 		}
 		if (os_version != null)
 			capability.setVersion(os_version);
-		if (browser != null)
+		if (browser != null) {
 			capability.setBrowserName(browser);
+			if (browser.equals(BrowserType.FIREFOX))
+				capability.setCapability(CapabilityType.UNEXPECTED_ALERT_BEHAVIOUR,
+						UnexpectedAlertBehaviour.IGNORE);
+		}
 		if (browser_version != null)
 			capability.setCapability("browser_version", browser_version);
 		if (resolution != null)
