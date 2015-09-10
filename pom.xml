@@ -144,7 +144,8 @@
 					</execution>
 					<execution>
 						<id>default-report</id>
-						<phase>prepare-package</phase>
+						<!-- <phase>prepare-package</phase> -->
+						<phase>test</phase>
 						<goals>
 							<goal>report</goal>
 						</goals>
@@ -170,15 +171,9 @@
 					</suiteXmlFiles>
 					<properties>
 						<argLine>-Dfile.encoding=UTF-8</argLine>
-						<!-- <xmlFileName></xmlFileName>
-						<property>
-							<name>usedefaultlisteners</name>
-							<value>false</value>
-						</property>
-						<property>
-							<name>listener</name>
-							<value>org.uncommons.reportng.HTMLReporter,org.uncommons.reportng.JUnitXMLReporter,org.daoefang.b2c.testng.HTMLReporter,org.daoefang.b2c.testng.XLSReporter,org.daoefang.b2c.testng.ResultListener,org.daoefang.b2c.testng.RetryListener,org.daoefang.b2c.testng.Hook</value>
-						</property> -->
+						<!-- <xmlFileName></xmlFileName> <property> <name>usedefaultlisteners</name> 
+							<value>false</value> </property> <property> <name>listener</name> <value>org.uncommons.reportng.HTMLReporter,org.uncommons.reportng.JUnitXMLReporter,org.daoefang.b2c.testng.HTMLReporter,org.daoefang.b2c.testng.XLSReporter,org.daoefang.b2c.testng.ResultListener,org.daoefang.b2c.testng.RetryListener,org.daoefang.b2c.testng.Hook</value> 
+							</property> -->
 					</properties>
 					<systemPropertyVariables>
 						<org.uncommons.reportng.title>Colline Automation Test Report</org.uncommons.reportng.title>
