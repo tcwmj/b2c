@@ -23,9 +23,12 @@
 		<parameter name="frontend_url" value="http://localhost:88/index.php" />
 		<parameter name="backend_url"
 			value="http://localhost:88/index.php?m=admin&amp;c=public&amp;a=login" />
-		<classes>
+		<packages>
+			<package name="org.daoefang.b2c.tests"/>
+		</packages>
+		<!-- <classes>
 			<class name="org.daoefang.b2c.tests.Test00001" />
-		</classes>
+		</classes> -->
 	</test>
 
 	<!-- <test name="thread-2"> <parameter name="os" value="windows" /> <parameter 
