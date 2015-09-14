@@ -7,10 +7,6 @@ import org.testng.IInvokedMethodListener;
 import org.testng.ITestResult;
 //import org.testng.log4testng.Logger;
 
-//import com.lombardrisk.pojo.DataBean;
-//import com.lombardrisk.utils.Property;
-//import com.lombardrisk.utils.TestCase;
-
 public class InvokedMethodListener implements IInvokedMethodListener {
 
 	// private Logger logger = Logger.getLogger(this.getClass());
