@@ -52,6 +52,8 @@ public class BackendPage extends Page implements IBackendPage {
 	 * @param password
 	 */
 	public void changePassword(Password password) {
+		logger.debug("trying to change admin's password with a new password "
+				+ password);
 		driver.click(CHANGE_PASSWORD);
 		switchToFrame();
 		if (password.getOldPassword() != null)

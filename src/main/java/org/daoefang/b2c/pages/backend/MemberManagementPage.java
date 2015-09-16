@@ -26,6 +26,7 @@ public class MemberManagementPage extends BackendPage implements
 	 */
 	public void addMember(Member member) {
 		switchToFrame();
+		logger.debug("trying to add a member");
 		driver.click(ADD_MEMBER);
 		if (member.getUsername() != null)
 			driver.input(USERNAME, member.getUsername());
@@ -82,20 +83,21 @@ public class MemberManagementPage extends BackendPage implements
 	 *            by format yyyy-MM-dd
 	 */
 	public void setMemberBirthday(String birthday) {
+		logger.debug("trying to set member's birthday by calendar dialog to "
+				+ birthday);
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 		Date date = null;
 		try {
 			date = df.parse(birthday);
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.error(e.getMessage(), e);
 		}
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(date);
 		String year = String.valueOf(cal.get(Calendar.YEAR));
 		String month = String.valueOf(cal.get(Calendar.MONTH));
 		String day = String.valueOf(cal.get(Calendar.DAY_OF_MONTH));
-		System.out.println(year + "-" + month + "-" + day);
+
 		driver.click(BIRTHDAY);
 		driver.click(CALENDAR_YEAR);
 		Integer iyear = Integer.parseInt(year);

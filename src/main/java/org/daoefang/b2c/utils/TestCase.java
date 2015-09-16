@@ -30,11 +30,10 @@ import org.testng.annotations.Parameters;
  */
 public class TestCase implements SystemData {
 
-	public static final DataBean sd = getSystemData();
+	public final static DataBean sd = getSystemData();
 	protected DataBean td;
 
 	{
-		System.setProperty("testcase.log.name", this.getClass().getSimpleName());
 		PropertyConfigurator.configure("config/log4j.properties");
 	}
 	protected Logger logger = Logger.getLogger(this.getClass());
@@ -134,7 +133,8 @@ public class TestCase implements SystemData {
 			@Optional String browser, @Optional String browser_version,
 			@Optional String resolution, @Optional String frontend_url,
 			@Optional String backend_url) {
-		logger.info("setup");
+		System.setProperty("testcase.log.name", this.getClass().getSimpleName());
+		logger.info("Try to setup a test");
 
 		driver = new Driver(os, os_version, browser, browser_version,
 				resolution, frontend_url, backend_url);
@@ -158,7 +158,7 @@ public class TestCase implements SystemData {
 
 	@AfterClass
 	protected void tearDown() {
-		logger.info("teardown");
+		logger.info("Try to teardown");
 		driver.quit();
 	}
 
@@ -167,15 +167,15 @@ public class TestCase implements SystemData {
 		if (!getSkipTest()) {
 			File tarFile = getTestData(getTestCaseId(), false);
 			if (tarFile.exists()) {
-				logger.debug("loading target test data...");
+				logger.debug("Try to load target test data...");
 				td = getTestData(tarFile);
 			} else {
 				File srcFile = getTestData(getTestCaseId(), true);
 				if (srcFile.exists()) {
-					logger.debug("loading source test data...");
+					logger.debug("Try to load source test data...");
 					td = getTestData(srcFile);
 				} else {
-					logger.debug("generating new test data...");
+					logger.debug("Try to generate new test data...");
 					td = new DataBean();
 				}
 			}
@@ -185,7 +185,7 @@ public class TestCase implements SystemData {
 	@AfterMethod
 	protected void afterStep() {
 		if (!getSkipTest()) {
-			logger.debug("saving test data...");
+			logger.debug("Try to save test data...");
 			File file = getTestData(getTestCaseId(), false);
 			setTestData(file, td);
 		}

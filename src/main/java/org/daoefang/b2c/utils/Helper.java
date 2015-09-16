@@ -27,6 +27,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.apache.xml.utils.DefaultErrorHandler;
 import org.hamcrest.MatcherAssert;
 import org.testng.Assert;
+import org.testng.log4testng.Logger;
 import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
 import org.xml.sax.helpers.DefaultHandler;
@@ -43,13 +44,15 @@ import difflib.Patch;
  */
 public class Helper {
 
+	private final static Logger logger = Logger.getLogger(Helper.class);
+
 	public static String toDate(String date, String fromFormat, String toFormat) {
 		SimpleDateFormat dateFormat = new SimpleDateFormat(fromFormat);
 		try {
 			Date d = dateFormat.parse(date);
 			return (new SimpleDateFormat(toFormat)).format(d);
 		} catch (ParseException e) {
-			e.printStackTrace();
+			logger.error(e.getMessage(), e);
 		}
 		return date;
 	}
@@ -100,11 +103,9 @@ public class Helper {
 			exec.waitFor();
 			exec.destroy(); // kill the process looking to download
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.error(e.getMessage(), e);
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.error(e.getMessage(), e);
 		}
 		testcase.report("../../../" + filePath, "download file " + fileName);
 		return file.getAbsolutePath();
@@ -197,20 +198,20 @@ public class Helper {
 			MatcherAssert.assertThat(workbook1,
 					Matchers.sameWorkbook(workbook2));
 		} catch (IOException e) {
-			e.printStackTrace();
+			logger.error(e.getMessage(), e);
 		} finally {
 			if (ins1 != null) {
 				try {
 					ins1.close();
 				} catch (IOException e) {
-					e.printStackTrace();
+					logger.error(e.getMessage(), e);
 				}
 			}
 			if (ins2 != null) {
 				try {
 					ins2.close();
 				} catch (IOException e) {
-					e.printStackTrace();
+					logger.error(e.getMessage(), e);
 				}
 			}
 		}
@@ -226,13 +227,13 @@ public class Helper {
 				lines.add(line);
 			}
 		} catch (IOException e) {
-			e.printStackTrace();
+			logger.error(e.getMessage(), e);
 		} finally {
 			if (in != null) {
 				try {
 					in.close();
 				} catch (IOException e) {
-					e.printStackTrace();
+					logger.error(e.getMessage(), e);
 				}
 			}
 		}
@@ -356,8 +357,7 @@ public class Helper {
 			writer.write(content);
 			writer.close();
 		} catch (IOException e) {
-			System.err.println("文件内容写入出错");
-			e.printStackTrace();
+			logger.error(e.getMessage(), e);
 		}
 	}
 

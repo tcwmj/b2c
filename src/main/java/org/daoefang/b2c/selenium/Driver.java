@@ -76,7 +76,7 @@ import com.thoughtworks.selenium.webdriven.JavascriptLibrary;
  */
 @SuppressWarnings("deprecation")
 public class Driver {
-	protected Logger logger = Logger.getLogger(this.getClass());
+	private final static Logger logger = Logger.getLogger(Driver.class);
 
 	public String os;
 	public String os_version;
@@ -85,7 +85,7 @@ public class Driver {
 	public String resolution;
 	public String frontend_url;
 	public String backend_url;
-	public static final String DEFAULT_DOWNLOAD_FOLDER = System
+	public final static String DEFAULT_DOWNLOAD_FOLDER = System
 			.getProperty("user.home") + File.separator + "Downloads";
 
 	private WebDriver driver;
@@ -129,6 +129,7 @@ public class Driver {
 	}
 
 	private WebDriver setupRemoteBrowser() {
+		logger.debug("try to setup a remote browser");
 		DesiredCapabilities capability = new DesiredCapabilities();
 		switch (os) {
 		case "mac":
@@ -145,7 +146,8 @@ public class Driver {
 		if (browser != null) {
 			capability.setBrowserName(browser);
 			if (browser.equals(BrowserType.FIREFOX))
-				capability.setCapability(CapabilityType.UNEXPECTED_ALERT_BEHAVIOUR,
+				capability.setCapability(
+						CapabilityType.UNEXPECTED_ALERT_BEHAVIOUR,
 						UnexpectedAlertBehaviour.IGNORE);
 		}
 		if (browser_version != null)
@@ -156,8 +158,7 @@ public class Driver {
 		try {
 			url = new URL(Property.HUB_URL);
 		} catch (MalformedURLException e) {
-			logger.error("url " + Property.HUB_URL + " is malformed");
-			e.printStackTrace();
+			logger.error(e.getMessage(), e);
 		}
 		RemoteWebDriver rwd = new RemoteWebDriver(url, capability);
 		rwd.setFileDetector(new LocalFileDetector());
@@ -168,6 +169,7 @@ public class Driver {
 	 * @return
 	 */
 	private WebDriver setupLocalBrowser() {
+		logger.debug("try to setup a local browser");
 		switch (browser.toLowerCase()) {
 		case "chrome":
 			return setupChome();
@@ -182,6 +184,7 @@ public class Driver {
 	 * @return
 	 */
 	private WebDriver setupChome() {
+		logger.debug("try to setup a chrome browser");
 		System.setProperty("webdriver.chrome.driver",
 				Property.WEB_DRIVER_CHROME);
 		return new ChromeDriver();
@@ -193,6 +196,7 @@ public class Driver {
 	 * @return
 	 */
 	private WebDriver setupInternetExplorer() {
+		logger.debug("try to setup a internet explorer browser");
 		if (Property.INTERNET_EXPLORER_PREFERRED.equals("x86"))
 			System.setProperty("webdriver.ie.driver",
 					Property.WEB_DRIVER_IE_X86);
@@ -226,6 +230,7 @@ public class Driver {
 	 * @return
 	 */
 	private WebDriver setupFirefox() {
+		logger.debug("try to setup a firefox browser");
 		// if (Property.FIREFOX_DIR != null
 		// && !Property.FIREFOX_DIR.trim().isEmpty())
 		// System.setProperty("webdriver.firefox.bin", Property.FIREFOX_DIR);
@@ -270,6 +275,7 @@ public class Driver {
 	 * 
 	 */
 	public void navigateForward() {
+		logger.debug("Try to navigate forward ");
 		driver.navigate().forward();
 	}
 
@@ -278,6 +284,7 @@ public class Driver {
 	 * 
 	 */
 	public void navigateBack() {
+		logger.debug("Try to navigate back ");
 		driver.navigate().back();
 	}
 
@@ -285,11 +292,12 @@ public class Driver {
 	 * quit driver
 	 */
 	public void quit() {
+		logger.debug("Try to destroy driver object");
 		if (driver instanceof WebDriver)
 			try {
 				driver.quit();
 			} catch (UnreachableBrowserException e) {
-				e.printStackTrace();
+				logger.error(e.getMessage(), e);
 			}
 	}
 
@@ -304,81 +312,6 @@ public class Driver {
 		wait.until(ExpectedConditions.elementToBeClickable(findElement(by)))
 				.click();
 		waitDocumentReady();
-	}
-
-	/**
-	 * click element without considering anything, it may raise unexpected
-	 * exception
-	 * 
-	 * @param by
-	 */
-	private void silentClick(By by) {
-		driver.findElement(by).click();
-		waitDocumentReady();
-	}
-
-	/**
-	 * forced to click element even if it's not clickable, it may raise
-	 * unexpected exception, please use method click as default
-	 * 
-	 * @param by
-	 */
-	public void forcedClick(By by) {
-		try {
-			click(by);
-		} catch (StaleElementReferenceException | TimeoutException e) {
-			silentClick(by);
-		}
-	}
-
-	/**
-	 * click an element if it's displayed, otherwise skip this action
-	 * 
-	 * @param by
-	 */
-	public void smartClick(By by) {
-		if (isDisplayed(by))
-			click(by);
-	}
-
-	/**
-	 * click the first element if it's displayed, otherwise click the 2nd
-	 * element
-	 * 
-	 * @param by
-	 */
-	public void smartClick(By by1, By by2) {
-		if (isDisplayed(by1))
-			click(by1);
-		else
-			click(by2);
-	}
-
-	/**
-	 * click the element if it's displayed, otherwise click the next element,
-	 * quit the method until the click action taking effective or elements used
-	 * out
-	 * 
-	 * @param by
-	 */
-	public void smartClick(List<By> bys) {
-		for (By by : bys) {
-			if (isDisplayed(by)) {
-				click(by);
-				break;
-			}
-		}
-	}
-
-	/**
-	 * click the first element in a loop while it's displayed
-	 * 
-	 * @param by
-	 */
-	public void loopClick(By by) {
-		while (isDisplayed(by)) {
-			click(by);
-		}
 	}
 
 	/**
@@ -431,18 +364,6 @@ public class Driver {
 	}
 
 	/**
-	 * clear the web edit box and input the value, then click the ajax locator
-	 * 
-	 * @param by
-	 * @param value
-	 * @param ajaxLocator
-	 */
-	public void ajaxInput(By by, String value, By ajaxLocator) {
-		input(by, value);
-		click(ajaxLocator);
-	}
-
-	/**
 	 * tick web check box if it's visible
 	 * 
 	 * @param by
@@ -450,6 +371,8 @@ public class Driver {
 	 *            true indicate tick on, false indicate tick off
 	 */
 	public void tick(By by, Boolean value) {
+		logger.debug("Try to tick " + ((value) ? "on " : "off ")
+				+ by.toString());
 		String checked = getAttribute(by, "checked");
 		if (checked == null || !checked.toLowerCase().equals("true")) {
 			if (value)
@@ -458,20 +381,6 @@ public class Driver {
 			if (!value)
 				click(by);
 		}
-	}
-
-	/**
-	 * tick web check box
-	 * 
-	 * @param by
-	 * @param value
-	 *            true indicate tick on, false indicate tick off
-	 */
-	public void alteredTick(By by, Boolean value) {
-		if (value)
-			setAttribute(by, "checked", "checked");
-		else
-			removeAttribute(by, "checked");
 	}
 
 	/**
@@ -570,6 +479,8 @@ public class Driver {
 	 * @param text
 	 */
 	public void waitTextSelected(By by, String text) {
+		logger.debug("Try to wait text " + text + " was selected on "
+				+ by.toString());
 		wait.until(ExpectedConditions.textToBePresentInElement(findElement(by),
 				text));
 	}
@@ -581,6 +492,8 @@ public class Driver {
 	 * @param text
 	 */
 	public void waitTextTyped(By by, String text) {
+		logger.debug("Try to wait text " + text + " was typed on "
+				+ by.toString());
 		wait.until(ExpectedConditions.textToBePresentInElementValue(
 				findElement(by), text));
 	}
@@ -651,7 +564,7 @@ public class Driver {
 	 * @param by
 	 */
 	public void contextClick(By by) {
-		logger.debug("Try to move mouse to " + by.toString());
+		logger.debug("Try to right click on " + by.toString());
 		WebElement element = wait.until(ExpectedConditions
 				.visibilityOf(findElement(by)));
 		Actions action = new Actions(driver);
@@ -698,7 +611,7 @@ public class Driver {
 			// .implicitlyWait(seconds, TimeUnit.SECONDS);
 			ret = findElement(by).isEnabled();
 		} catch (NoSuchElementException | StaleElementReferenceException e) {
-			e.printStackTrace();
+			logger.error(e.getMessage(), e);
 		}
 		// finally {
 		// driver.manage()
@@ -744,7 +657,7 @@ public class Driver {
 			// .implicitlyWait(seconds, TimeUnit.SECONDS);
 			ret = driver.findElement(by).isSelected();
 		} catch (NoSuchElementException | StaleElementReferenceException e) {
-			e.printStackTrace();
+			logger.error(e.getMessage(), e);
 		}
 		// finally {
 		// driver.manage()
@@ -853,6 +766,7 @@ public class Driver {
 	 * @param by
 	 */
 	public void waitVisible(By by) {
+		logger.debug("Try to wait locator " + by.toString() + " to be visible");
 		wait.until(ExpectedConditions.visibilityOf(findElement(by)));
 	}
 
@@ -862,6 +776,8 @@ public class Driver {
 	 * @param by
 	 */
 	public void waitInvisible(By by) {
+		logger.debug("Try to wait locator " + by.toString()
+				+ " to be invisible");
 		wait.until(ExpectedConditions.invisibilityOfElementLocated(by));
 	}
 
@@ -873,6 +789,8 @@ public class Driver {
 	 *            in seconds
 	 */
 	public void waitVisible(By by, int timeout) {
+		logger.debug("Try to wait locator " + by.toString()
+				+ " to be visible in " + timeout + " seconds");
 		long t = System.currentTimeMillis();
 		while (System.currentTimeMillis() - t < timeout * 100) {
 			if (isPresent(by)) {
@@ -892,6 +810,8 @@ public class Driver {
 	 *            in seconds
 	 */
 	public void waitInvisible(By by, int timeout) {
+		logger.debug("Try to wait locator " + by.toString()
+				+ " to be invisible in " + timeout + " seconds");
 		long t = System.currentTimeMillis();
 		while (System.currentTimeMillis() - t < timeout * 100) {
 			if (!isPresent(by)) {
@@ -909,6 +829,7 @@ public class Driver {
 	 * @param fileName
 	 */
 	public void saveScreenShot(String fileName) {
+		logger.debug("Try to save screenshot as " + fileName);
 		if (!(new File(Property.SCREENSHOT_DIR).isDirectory())) {
 			new File(Property.SCREENSHOT_DIR).mkdir();
 		}
@@ -929,6 +850,7 @@ public class Driver {
 	 * @param testresult
 	 */
 	public void saveScreenShot(ITestResult testresult) {
+		logger.debug("Try to save screenshot");
 		TakesScreenshot tsDriver;
 		if (Property.REMOTE)
 			// RemoteWebDriver does not implement the TakesScreenshot class
@@ -956,7 +878,7 @@ public class Driver {
 			logger.error(testresult.getTestClass().getName() + "."
 					+ testresult.getName() + " saveScreentshot failed "
 					+ e.getMessage());
-			e.printStackTrace();
+			logger.error(e.getMessage(), e);
 		}
 	}
 
@@ -975,6 +897,7 @@ public class Driver {
 	 * @param title
 	 */
 	public void waitTitle(String title) {
+		logger.debug("Try to wait title to be " + title);
 		wait.until(ExpectedConditions.titleIs(title));
 	}
 
@@ -1030,8 +953,7 @@ public class Driver {
 			robot = new Robot();
 			robot.keyPress(key);
 		} catch (AWTException e) {
-			logger.error("typeKeyEvent error " + e.getMessage());
-			e.printStackTrace();
+			logger.error(e.getMessage(), e);
 		}
 	}
 
@@ -1042,11 +964,11 @@ public class Driver {
 	 *            Milliseconds
 	 */
 	public void forceWait(int millis) {
+		logger.debug("Try to force wait in " + millis + " milliseconds");
 		try {
 			Thread.sleep(millis);
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.error(e.getMessage(), e);
 		}
 	}
 
@@ -1204,6 +1126,7 @@ public class Driver {
 	 * close the current window
 	 */
 	public void close() {
+		logger.debug("Try to close the current browser");
 		driver.close();
 	}
 
@@ -1415,6 +1338,7 @@ public class Driver {
 	 * accept the alert, confirm or prompt window
 	 */
 	public void acceptAlert() {
+		logger.debug("trying to accept alert");
 		findAlert().accept();
 	}
 
@@ -1422,6 +1346,7 @@ public class Driver {
 	 * input value on the prompt window
 	 */
 	public void inputAlert(String text) {
+		logger.debug("trying to input text alert with " + text);
 		findAlert().sendKeys(text);
 	}
 
@@ -1431,6 +1356,7 @@ public class Driver {
 	 * @return
 	 */
 	public String getAlertText() {
+		logger.debug("trying to get text in alert");
 		return findAlert().getText();
 	}
 

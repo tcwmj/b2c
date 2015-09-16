@@ -22,6 +22,7 @@ public final class LoginPage extends BackendPage implements ILoginPage {
 	 *            用户登录信息
 	 */
 	public void login(LoginCredential lc) {
+		logger.debug("trying to login with specified credential");
 		if (lc.getUsername() != null)
 			driver.input(USERNAME, lc.getUsername());
 		if (lc.getPassword() != null)
