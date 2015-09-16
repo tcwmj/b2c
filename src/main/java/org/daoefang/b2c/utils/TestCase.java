@@ -6,6 +6,7 @@ import java.util.Date;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
+import org.apache.log4j.PropertyConfigurator;
 import org.daoefang.b2c.bean.DataBean;
 import org.daoefang.b2c.bean.SystemData;
 import org.daoefang.b2c.pages.backend.GoodsManagementPage;
@@ -31,6 +32,10 @@ public class TestCase implements SystemData {
 
 	public static final DataBean sd = getSystemData();
 	protected DataBean td;
+
+	{
+		PropertyConfigurator.configure("config/log4j.properties");
+	}
 	protected Logger logger = Logger.getLogger(this.getClass());
 	protected Driver driver;
 
