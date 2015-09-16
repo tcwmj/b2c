@@ -106,8 +106,7 @@ public class Helper {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		testcase.report(getTestReportStyle("../../../" + filePath,
-				"download file " + fileName));
+		testcase.report("../../../" + filePath, "download file " + fileName);
 		return file.getAbsolutePath();
 	}
 

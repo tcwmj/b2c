@@ -34,6 +34,7 @@ public class TestCase implements SystemData {
 	protected DataBean td;
 
 	{
+		System.setProperty("testcase.log.name", this.getClass().getSimpleName());
 		PropertyConfigurator.configure("config/log4j.properties");
 	}
 	protected Logger logger = Logger.getLogger(this.getClass());
@@ -139,10 +140,10 @@ public class TestCase implements SystemData {
 				resolution, frontend_url, backend_url);
 
 		if (new File("data/" + getTestCaseId() + ".xml").exists())
-			report(Helper.getTestReportStyle("../../../data/" + getTestCaseId()
-					+ ".xml", "open source test data"));
-		report(Helper.getTestReportStyle("../../../target/data/"
-				+ getTestCaseId() + ".xml", "open target test data"));
+			report("../../../data/" + getTestCaseId() + ".xml",
+					"open source test data");
+		report("../../../target/data/" + getTestCaseId() + ".xml",
+				"open target test data");
 
 		// if (url == null) {
 		// report(Helper.getTestReportStyle(Property.FRONTEND_URL,
@@ -191,15 +192,29 @@ public class TestCase implements SystemData {
 	}
 
 	/**
-	 * log the content into the report
+	 * report the text content
 	 * 
-	 * @param s
+	 * @param text
 	 */
-	public void report(String s) {
+	public void report(String text) {
 		SimpleDateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 		String now = df.format(new Date());
-		logger.info(s);
-		Reporter.log(now + " " + this.getClass().getName() + " " + s + "<br>");
+		logger.info(text);
+		Reporter.log(now + " " + this.getClass().getName() + " " + text
+				+ "<br>");
+	}
+
+	/**
+	 * report the text content with a source link to a file
+	 * 
+	 * @param text
+	 */
+	public void report(String source, String text) {
+		SimpleDateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+		String now = df.format(new Date());
+		logger.info(text + " " + source);
+		Reporter.log(now + " " + this.getClass().getName() + " "
+				+ Helper.getTestReportStyle(source, text) + "<br>");
 	}
 
 	/**
