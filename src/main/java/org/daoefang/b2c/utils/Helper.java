@@ -21,13 +21,17 @@ import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
 import org.apache.commons.codec.digest.DigestUtils;
+import org.apache.log4j.FileAppender;
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
+import org.apache.log4j.PatternLayout;
+import org.apache.log4j.RollingFileAppender;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.apache.xml.utils.DefaultErrorHandler;
 import org.hamcrest.MatcherAssert;
 import org.testng.Assert;
-import org.testng.log4testng.Logger;
 import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
 import org.xml.sax.helpers.DefaultHandler;
@@ -388,4 +392,43 @@ public class Helper {
 		Assert.assertEquals(actualFileHash, hash.toLowerCase());
 	}
 
+	/**
+	 * get test case logger so as to generate test case log one by one
+	 * 
+	 * @param claz
+	 * @return
+	 */
+	public static Logger getTestCaseLogger(Class<?> claz) {
+		// 生成新的Logger, 如果已經有了一個Logger實例返回現有的
+		Logger logger = Logger.getLogger(claz);
+
+		// 清空Appender，特別是不想使用現存實例時一定要初期化
+		logger.removeAllAppenders();
+		// 設定Logger級別
+		logger.setLevel(Level.DEBUG);
+		// 設定是否繼承父Logger,，默認為true，繼承root輸出,
+		// 設定false後將不輸出root
+		logger.setAdditivity(true);
+
+		// 生成新的Appender
+		FileAppender appender = new RollingFileAppender();
+		appender.setName(claz.getSimpleName());
+		PatternLayout layout = new PatternLayout();
+		// log的输出形式
+		String conversionPattern = "%d %-5p [%c] (%t:%x) %m%n";
+		layout.setConversionPattern(conversionPattern);
+		appender.setLayout(layout);
+		// log输出路径
+		appender.setFile("target/logs/" + claz.getSimpleName() + ".log");
+		// log的文字码
+		appender.setEncoding("UTF-8");
+		// true:在已存在log文件后面追加 false:新log覆盖以前的log
+		appender.setAppend(false);
+		// 适用当前配置
+		appender.activateOptions();
+		// 将新的Appender加到Logger中
+		logger.addAppender(appender);
+
+		return logger;
+	}
 }

@@ -36,7 +36,7 @@ public class TestCase implements SystemData {
 	{
 		PropertyConfigurator.configure("config/log4j.properties");
 	}
-	protected Logger logger = Logger.getLogger(this.getClass());
+	protected Logger logger = Helper.getTestCaseLogger(this.getClass());
 	protected Driver driver;
 
 	protected Backend backend = new Backend();
@@ -133,7 +133,6 @@ public class TestCase implements SystemData {
 			@Optional String browser, @Optional String browser_version,
 			@Optional String resolution, @Optional String frontend_url,
 			@Optional String backend_url) {
-		System.setProperty("testcase.log.name", this.getClass().getSimpleName());
 		logger.info("Try to setup a test");
 
 		driver = new Driver(os, os_version, browser, browser_version,
