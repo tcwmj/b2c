@@ -17,6 +17,5 @@
 package org.daoefang.b2c.utils;
 
 public enum HashType {
-    MD5,
-    SHA1;
+	MD5, SHA1;
 }

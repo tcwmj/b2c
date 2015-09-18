@@ -359,6 +359,8 @@ public class Driver {
 	 * @param value
 	 */
 	public void input(By by, String value) {
+		logger.debug("Try to clear value on " + by.toString()
+				+ " and type a new value " + value);
 		clear(by);
 		type(by, value);
 	}
@@ -999,7 +1001,7 @@ public class Driver {
 		} catch (ElementNotFoundException e1) {
 			logger.error("locator " + by.toString() + " was not found", e1);
 		} catch (WebDriverException e2) {
-			// e.printStackTrace();
+			// logger.error(e.getMessage(), e);
 		}
 
 	}
@@ -1057,7 +1059,7 @@ public class Driver {
 			javascript.callEmbeddedSelenium(driver, "triggerEvent",
 					findElement(by), event);
 		} catch (WebDriverException e) {
-			// e.printStackTrace();
+			// logger.error(e.getMessage(), e);
 		}
 		waitDocumentReady();
 	}
@@ -1077,7 +1079,7 @@ public class Driver {
 		} catch (ElementNotFoundException e1) {
 			logger.error("locator " + by.toString() + " was not found", e1);
 		} catch (WebDriverException e2) {
-			// e.printStackTrace();
+			// logger.error(e.getMessage(), e);
 		}
 		waitDocumentReady();
 	}
@@ -1145,7 +1147,7 @@ public class Driver {
 		} catch (ElementNotFoundException e1) {
 			logger.error("locator " + by.toString() + " was not found", e1);
 		} catch (WebDriverException e2) {
-			// e.printStackTrace();
+			// logger.error(e.getMessage(), e);
 		}
 	}
 
@@ -1163,7 +1165,7 @@ public class Driver {
 		} catch (ElementNotFoundException e1) {
 			logger.error("locator " + by.toString() + " was not found", e1);
 		} catch (WebDriverException e2) {
-			// e.printStackTrace();
+			// logger.error(e.getMessage(), e);
 		}
 	}
 
@@ -1184,7 +1186,7 @@ public class Driver {
 				}
 			});
 		} catch (WebDriverException e) {
-			// e.printStackTrace();
+			// logger.error(e.getMessage(), e);
 		}
 	}
 
@@ -1399,7 +1401,7 @@ public class Driver {
 		} catch (ElementNotFoundException e1) {
 			logger.error("locator " + by.toString() + " was not found", e1);
 		} catch (WebDriverException e2) {
-			// e.printStackTrace();
+			// logger.error(e.getMessage(), e);
 		}
 		return we;
 	}

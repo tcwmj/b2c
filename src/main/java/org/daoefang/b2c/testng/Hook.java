@@ -2,12 +2,15 @@ package org.daoefang.b2c.testng;
 
 import java.lang.reflect.Method;
 
+import org.apache.log4j.Logger;
 import org.testng.IHookCallBack;
 import org.testng.IHookable;
 import org.testng.ITestResult;
 import org.testng.SkipException;
 
 public class Hook implements IHookable {
+
+	private final static Logger logger = Logger.getLogger(IHookable.class);
 
 	@Override
 	public void run(IHookCallBack callBack, ITestResult testResult) {
@@ -23,7 +26,7 @@ public class Hook implements IHookable {
 			skipTest = (Boolean) method.invoke(testResult.getInstance());
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.error(e.getMessage(), e);
 		}
 		if (skipTest)
 			throw new SkipException("skip method "

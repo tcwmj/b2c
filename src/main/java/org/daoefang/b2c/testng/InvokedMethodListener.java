@@ -5,11 +5,12 @@ package org.daoefang.b2c.testng;
 import org.testng.IInvokedMethod;
 import org.testng.IInvokedMethodListener;
 import org.testng.ITestResult;
-//import org.testng.log4testng.Logger;
+
+//import org.apache.log4j.Logger;
 
 public class InvokedMethodListener implements IInvokedMethodListener {
 
-	// private Logger logger = Logger.getLogger(this.getClass());
+	// private final static Logger logger = Logger.getLogger(InvokedMethodListener.class);
 
 	@Override
 	public void beforeInvocation(IInvokedMethod method, ITestResult testResult) {

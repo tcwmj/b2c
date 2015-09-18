@@ -6,7 +6,6 @@ import java.util.Date;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
-import org.apache.log4j.PropertyConfigurator;
 import org.daoefang.b2c.bean.DataBean;
 import org.daoefang.b2c.bean.SystemData;
 import org.daoefang.b2c.pages.backend.GoodsManagementPage;
@@ -29,13 +28,8 @@ import org.testng.annotations.Parameters;
  * 
  */
 public class TestCase implements SystemData {
-
 	public final static DataBean sd = getSystemData();
 	protected DataBean td;
-
-	{
-		PropertyConfigurator.configure("config/log4j.properties");
-	}
 	protected Logger logger = Helper.getTestCaseLogger(this.getClass());
 	protected Driver driver;
 
@@ -198,7 +192,7 @@ public class TestCase implements SystemData {
 	public void report(String text) {
 		SimpleDateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 		String now = df.format(new Date());
-		logger.info(text);
+		logger.info("print test report : " + text);
 		Reporter.log(now + " " + this.getClass().getName() + " " + text
 				+ "<br>");
 	}
@@ -211,7 +205,7 @@ public class TestCase implements SystemData {
 	public void report(String source, String text) {
 		SimpleDateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 		String now = df.format(new Date());
-		logger.info(text + " " + source);
+		logger.info("print test report : " + text + " " + source);
 		Reporter.log(now + " " + this.getClass().getName() + " "
 				+ Helper.getTestReportStyle(source, text) + "<br>");
 	}

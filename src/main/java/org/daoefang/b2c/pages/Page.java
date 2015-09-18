@@ -1,9 +1,9 @@
 package org.daoefang.b2c.pages;
 
+import org.apache.log4j.Logger;
 import org.daoefang.b2c.elements.IPage;
 import org.daoefang.b2c.selenium.Driver;
 import org.openqa.selenium.By;
-import org.testng.log4testng.Logger;
 
 public class Page implements IPage {
 	protected Logger logger = Logger.getLogger(this.getClass());

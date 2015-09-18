@@ -6,6 +6,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Iterator;
 
+import org.apache.log4j.Logger;
 import org.apache.poi.hssf.usermodel.HSSFHyperlink;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
@@ -19,6 +20,8 @@ import org.testng.ITestResult;
 import org.testng.internal.Utils;
 
 public class XLSRuntimeReporter {
+	private final static Logger logger = Logger
+			.getLogger(XLSRuntimeReporter.class);
 
 	private String reportName = "runtime-report.xls";
 	private String reportPath = new File("").getAbsolutePath() + "\\target\\";
@@ -230,13 +233,13 @@ public class XLSRuntimeReporter {
 				workbook = new HSSFWorkbook(ins);
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error(e.getMessage(), e);
 		} finally {
 			if (ins != null) {
 				try {
 					ins.close();
 				} catch (IOException e) {
-					e.printStackTrace();
+					logger.error(e.getMessage(), e);
 				}
 			}
 		}
@@ -255,13 +258,13 @@ public class XLSRuntimeReporter {
 			fos = new FileOutputStream(filePath);
 			workbook.write(fos);
 		} catch (IOException e) {
-			e.printStackTrace();
+			logger.error(e.getMessage(), e);
 		} finally {
 			if (fos != null)
 				try {
 					fos.close();
 				} catch (IOException e) {
-					e.printStackTrace();
+					logger.error(e.getMessage(), e);
 				}
 		}
 	}

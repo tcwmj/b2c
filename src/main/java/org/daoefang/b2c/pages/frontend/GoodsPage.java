@@ -12,5 +12,5 @@ public final class GoodsPage extends FrontendPage implements IGoodsPage {
 	public GoodsPage(Driver driver) {
 		super(driver);
 	}
-	
+
 }

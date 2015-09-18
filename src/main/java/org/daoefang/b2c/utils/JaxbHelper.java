@@ -15,6 +15,7 @@ import javax.xml.bind.util.ValidationEventCollector;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 
+import org.apache.log4j.Logger;
 import org.xml.sax.SAXException;
 
 /**
@@ -22,6 +23,8 @@ import org.xml.sax.SAXException;
  * 
  */
 public class JaxbHelper {
+
+	private final static Logger logger = Logger.getLogger(JaxbHelper.class);
 
 	/**
 	 * xml default encoding is UTF-8
@@ -51,7 +54,7 @@ public class JaxbHelper {
 			marshaller.marshal(obj, writer);
 			result = writer.toString();
 		} catch (JAXBException e) {
-			e.printStackTrace();
+			logger.error(e.getMessage(), e);
 		}
 		return result;
 	}
@@ -78,7 +81,7 @@ public class JaxbHelper {
 			unmarshaller.setEventHandler(validation);
 			t = (T) unmarshaller.unmarshal(new StringReader(xml));
 		} catch (JAXBException | SAXException e) {
-			e.printStackTrace();
+			logger.error(e.getMessage(), e);
 		} finally {
 			if (validation != null && validation.hasEvents()) {
 				for (ValidationEvent ve : validation.getEvents()) {

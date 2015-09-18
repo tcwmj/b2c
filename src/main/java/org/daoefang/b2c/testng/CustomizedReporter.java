@@ -8,6 +8,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.log4j.Logger;
 import org.testng.IInvokedMethod;
 import org.testng.IReporter;
 import org.testng.IResultMap;
@@ -16,7 +17,6 @@ import org.testng.ITestContext;
 import org.testng.ITestNGMethod;
 import org.testng.ITestResult;
 import org.testng.collections.Lists;
-import org.testng.log4testng.Logger;
 import org.testng.xml.XmlSuite;
 
 import com.thoughtworks.qdox.JavaDocBuilder;

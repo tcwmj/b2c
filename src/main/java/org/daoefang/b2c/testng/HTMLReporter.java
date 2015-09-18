@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.log4j.Logger;
 import org.daoefang.b2c.utils.Property;
 import org.testng.IResultMap;
 import org.testng.ISuite;
@@ -24,7 +25,6 @@ import org.testng.ITestNGMethod;
 import org.testng.ITestResult;
 import org.testng.Reporter;
 import org.testng.internal.Utils;
-import org.testng.log4testng.Logger;
 import org.testng.xml.XmlSuite;
 
 /**

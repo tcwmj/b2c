@@ -68,7 +68,7 @@ public class MemberManagementPage extends BackendPage implements
 			} catch (IllegalAccessException | IllegalArgumentException
 					| InvocationTargetException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+				logger.error(e.getMessage(), e);
 			}
 		}
 		switchToFrame();

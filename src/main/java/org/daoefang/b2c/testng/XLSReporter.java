@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.log4j.Logger;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -18,7 +19,6 @@ import org.testng.ISuiteResult;
 import org.testng.ITestContext;
 import org.testng.ITestResult;
 import org.testng.internal.Utils;
-import org.testng.log4testng.Logger;
 import org.testng.xml.XmlSuite;
 
 /**
@@ -28,7 +28,6 @@ import org.testng.xml.XmlSuite;
  * @author Kenny Wang
  */
 public class XLSReporter extends CustomizedReporter {
-	@SuppressWarnings("unused")
 	private static final Logger logger = Logger.getLogger(XLSReporter.class);
 
 	// ~ Instance fields ------------------------------------------------------
@@ -103,7 +102,7 @@ public class XLSReporter extends CustomizedReporter {
 				workbook = new HSSFWorkbook(new FileInputStream(file.getPath()));
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error(e.getMessage(), e);
 		}
 		return workbook;
 	}
@@ -192,13 +191,13 @@ public class XLSReporter extends CustomizedReporter {
 			fos = new FileOutputStream(report.getPath());
 			workbook.write(fos);
 		} catch (IOException e) {
-			e.printStackTrace();
+			logger.error(e.getMessage(), e);
 		} finally {
 			if (fos != null)
 				try {
 					fos.close();
 				} catch (IOException e) {
-					e.printStackTrace();
+					logger.error(e.getMessage(), e);
 				}
 		}
 	}

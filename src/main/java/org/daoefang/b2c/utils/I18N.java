@@ -8,11 +8,15 @@ import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Properties;
 
+import org.apache.log4j.Logger;
+
 /**
  * @author Kenny Wang
  * 
  */
 public class I18N {
+	private final static Logger logger = Logger.getLogger(I18N.class);
+
 	private final String langPath = "config/lang";
 
 	private final String lang;
@@ -50,7 +54,7 @@ public class I18N {
 			props.load(in);
 			in.close();
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error(e.getMessage(), e);
 		}
 		HashMap<String, String> ret = new HashMap<String, String>();
 		try {
@@ -63,7 +67,7 @@ public class I18N {
 				ret.put(key, value);
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error(e.getMessage(), e);
 		}
 		return ret;
 	}
@@ -75,8 +79,7 @@ public class I18N {
 	public String toDate(String date) {
 		switch (lang) {
 		case ZH_CN:
-			return Helper.toDate(date, DATE_PATTERN_EN_US,
-					DATE_PATTERN_ZH_CN);
+			return Helper.toDate(date, DATE_PATTERN_EN_US, DATE_PATTERN_ZH_CN);
 		case EN:
 			return Helper.toDate(date, DATE_PATTERN_EN_US, DATE_PATTERN_EN);
 		}

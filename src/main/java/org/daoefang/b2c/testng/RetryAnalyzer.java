@@ -2,6 +2,7 @@ package org.daoefang.b2c.testng;
 
 import java.lang.reflect.Method;
 
+import org.apache.log4j.Logger;
 import org.daoefang.b2c.utils.Property;
 import org.testng.IRetryAnalyzer;
 import org.testng.ITestResult;
@@ -11,6 +12,7 @@ import org.testng.ITestResult;
  * 
  */
 public class RetryAnalyzer implements IRetryAnalyzer {
+	private final static Logger logger = Logger.getLogger(IRetryAnalyzer.class);
 	private static final int MAX_RETRY_COUNT = Property.RETRY_COUNT;
 	private int retryCount = 0;
 
@@ -28,8 +30,7 @@ public class RetryAnalyzer implements IRetryAnalyzer {
 					.getMethod("setSkipTest", Boolean.class);
 			method.invoke(testResult.getInstance(), true);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.error(e.getMessage(), e);
 		}
 
 		return false;

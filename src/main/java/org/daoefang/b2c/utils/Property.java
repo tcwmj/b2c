@@ -5,7 +5,7 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.Properties;
 
-import org.testng.log4testng.Logger;
+import org.apache.log4j.Logger;
 
 /**
  * @author Kenny Wang
@@ -13,7 +13,7 @@ import org.testng.log4testng.Logger;
  */
 public class Property {
 
-	private static Logger logger = Logger.getLogger(Property.class);
+	private final static Logger logger = Logger.getLogger(Property.class);
 	private static Properties props = null;
 
 	private static final String PROPERTY_FILE = "config/test.properties";
@@ -86,8 +86,7 @@ public class Property {
 			props.load(in);
 			in.close();
 		} catch (Exception e) {
-			logger.info(e.getMessage());
-			e.printStackTrace();
+			logger.error(e.getMessage(), e);
 		}
 	}
 
