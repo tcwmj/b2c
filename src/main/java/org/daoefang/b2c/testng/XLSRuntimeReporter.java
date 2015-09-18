@@ -23,10 +23,13 @@ public class XLSRuntimeReporter {
 	private final static Logger logger = Logger
 			.getLogger(XLSRuntimeReporter.class);
 
-	private String reportName = "runtime-report.xls";
+	private String reportName = "runtime_report.xls";
 	private String reportPath = new File("").getAbsolutePath() + "\\target\\";
-	private static final String TEST_SHEET = "Test Summary";
-	private static final String STEP_SHEET = "Step Summary";
+
+	private static Workbook WORKBOOK;
+
+	private static final String TEST_SHEET_NAME = "Test Summary";
+	private static final String STEP_SHEET_NAME = "Step Summary";
 
 	/**
 	 * get status description from the testng test status id
@@ -51,51 +54,56 @@ public class XLSRuntimeReporter {
 		}
 	}
 
+	public XLSRuntimeReporter() {
+		super();
+	}
+
 	public XLSRuntimeReporter(String reportName) {
 		super();
 		this.reportName = reportName;
 	}
 
-	public void generateReport() {
-		Workbook workbook = openReport(reportPath + reportName);
+	public XLSRuntimeReporter generateReport() {
+		if (!openReport(reportPath + reportName)) {
+			// cell style
+			CellStyle style = WORKBOOK.createCellStyle();
+			style.setFillForegroundColor(IndexedColors.BLUE.getIndex());
+			style.setFillPattern(CellStyle.SOLID_FOREGROUND);
+			// cell font style
+			Font font = WORKBOOK.createFont();
+			// font.setFontHeightInPoints((short)24); //font size
+			// font.setFontName("楷体");
+			font.setBoldweight(Font.BOLDWEIGHT_BOLD);// bold or not
+			font.setColor(IndexedColors.WHITE.index);// font color
+			style.setFont(font);
 
-		// cell style
-		CellStyle style = workbook.createCellStyle();
-		style.setFillForegroundColor(IndexedColors.BLUE.getIndex());
-		style.setFillPattern(CellStyle.SOLID_FOREGROUND);
-		// cell font style
-		Font font = workbook.createFont();
-		// font.setFontHeightInPoints((short)24); //font size
-		// font.setFontName("楷体");
-		font.setBoldweight(Font.BOLDWEIGHT_BOLD);// bold or not
-		font.setColor(IndexedColors.WHITE.index);// font color
-		style.setFont(font);
+			if (WORKBOOK.getSheet(TEST_SHEET_NAME) == null) {
+				Sheet testSheet = WORKBOOK.createSheet(TEST_SHEET_NAME);
+				Row testRow = testSheet.createRow(0);
+				testRow.createCell(0).setCellValue("TestCase");
+				testRow.getCell(0).setCellStyle(style);
+				testRow.createCell(1).setCellValue("Status");
+				testRow.getCell(1).setCellStyle(style);
+			}
 
-		if (workbook.getSheet(TEST_SHEET) == null) {
-			Sheet testSheet = workbook.createSheet(TEST_SHEET);
-			Row testRow = testSheet.createRow(0);
-			testRow.createCell(0).setCellValue("TestCase");
-			testRow.getCell(0).setCellStyle(style);
-			testRow.createCell(1).setCellValue("Status");
-			testRow.getCell(1).setCellStyle(style);
+			if (WORKBOOK.getSheet(STEP_SHEET_NAME) == null) {
+				Sheet stepSheet = WORKBOOK.createSheet(STEP_SHEET_NAME);
+				Row stepRow = stepSheet.createRow(0);
+				stepRow.createCell(0).setCellValue("TestCase");
+				stepRow.getCell(0).setCellStyle(style);
+				stepRow.createCell(1).setCellValue("TestStep");
+				stepRow.getCell(1).setCellStyle(style);
+				stepRow.createCell(2).setCellValue("Status");
+				stepRow.getCell(2).setCellStyle(style);
+				stepRow.createCell(3).setCellValue("Description");
+				stepRow.getCell(3).setCellStyle(style);
+				stepRow.createCell(4).setCellValue("Comments");
+				stepRow.getCell(4).setCellStyle(style);
+			}
+
+			saveReport(reportPath + reportName);
 		}
-
-		if (workbook.getSheet(STEP_SHEET) == null) {
-			Sheet stepSheet = workbook.createSheet(STEP_SHEET);
-			Row stepRow = stepSheet.createRow(0);
-			stepRow.createCell(0).setCellValue("TestCase");
-			stepRow.getCell(0).setCellStyle(style);
-			stepRow.createCell(1).setCellValue("TestStep");
-			stepRow.getCell(1).setCellStyle(style);
-			stepRow.createCell(2).setCellValue("Status");
-			stepRow.getCell(2).setCellStyle(style);
-			stepRow.createCell(3).setCellValue("Description");
-			stepRow.getCell(3).setCellStyle(style);
-			stepRow.createCell(4).setCellValue("Comments");
-			stepRow.getCell(4).setCellStyle(style);
-		}
-
-		saveReport(workbook, reportPath + reportName);
+		return this;
 	}
 
 	/**
@@ -104,33 +112,31 @@ public class XLSRuntimeReporter {
 	 * @param testResult
 	 */
 	public void updateReport(ITestResult testResult) {
-		Workbook workbook = openReport(reportPath + reportName);
-		Integer testRow = updateTestSheet(workbook, testResult);
-		Integer stepRow = updateStepSheet(workbook, testResult);
+		Integer testRow = updateTestSheet(testResult);
+		Integer stepRow = updateStepSheet(testResult);
 		// set hyperlink between test sheet and step sheet
 		if (testRow != null && stepRow != null) {
 			HSSFHyperlink link = new HSSFHyperlink(HSSFHyperlink.LINK_DOCUMENT);
-			link.setAddress("'" + STEP_SHEET + "'!A" + stepRow);
-			Row row = workbook.getSheet(TEST_SHEET).getRow(testRow);
+			link.setAddress("'" + STEP_SHEET_NAME + "'!A" + stepRow);
+			Row row = WORKBOOK.getSheet(TEST_SHEET_NAME).getRow(testRow);
 			row.getCell(1).setHyperlink(link);
 		}
-		saveReport(workbook, reportPath + reportName);
+		saveReport(reportPath + reportName);
 	}
 
 	/**
 	 * update test summary sheet result
 	 * 
-	 * @param workbook
 	 * @param testResult
 	 * @return
 	 */
-	private Integer updateTestSheet(Workbook workbook, ITestResult testResult) {
+	private Integer updateTestSheet(ITestResult testResult) {
 		String testCase = testResult.getInstance().getClass().getSimpleName()
 				.replace("Test", "").replaceFirst("^0*", "");
-		Sheet sheet = workbook.getSheet(TEST_SHEET);
+		Sheet sheet = WORKBOOK.getSheet(TEST_SHEET_NAME);
 		Iterator<Row> it = sheet.iterator();
 
-		// try to update exiting test result
+		// try to update existing test result
 		while (it.hasNext()) {
 			Row row = it.next();
 			String caseId = row.getCell(0).getStringCellValue();
@@ -139,7 +145,7 @@ public class XLSRuntimeReporter {
 				if (testResult.getStatus() != 3 && testResult.getStatus() != 16) {
 					row.getCell(1).setCellValue(
 							getStatus(testResult.getStatus()));
-					setCellStyle(workbook, testResult, row.getCell(1));
+					setCellStyle(testResult, row.getCell(1));
 				}
 				return row.getRowNum();
 			}
@@ -150,20 +156,19 @@ public class XLSRuntimeReporter {
 		Row row = sheet.createRow(rowNum);
 		row.createCell(0).setCellValue(testCase);
 		row.createCell(1).setCellValue(getStatus(testResult.getStatus()));
-		setCellStyle(workbook, testResult, row.getCell(1));
+		setCellStyle(testResult, row.getCell(1));
 		return row.getRowNum();
 	}
 
 	/**
 	 * update test step sheet result
 	 * 
-	 * @param workbook
 	 * @param testResult
 	 * @return
 	 */
-	private Integer updateStepSheet(Workbook workbook, ITestResult testResult) {
+	private Integer updateStepSheet(ITestResult testResult) {
 		String testStep = testResult.getMethod().getMethodName();
-		Sheet sheet = workbook.getSheet(STEP_SHEET);
+		Sheet sheet = WORKBOOK.getSheet(STEP_SHEET_NAME);
 		int rowCount = sheet.getPhysicalNumberOfRows();
 		// step status is not equal to started
 		if (testResult.getStatus() != 16) {
@@ -174,7 +179,7 @@ public class XLSRuntimeReporter {
 			row.createCell(0).setCellValue(testCase);
 			row.createCell(1).setCellValue(testStep);
 			row.createCell(2).setCellValue(getStatus(testResult.getStatus()));
-			setCellStyle(workbook, testResult, row.getCell(2));
+			setCellStyle(testResult, row.getCell(2));
 			row.createCell(3).setCellValue(
 					testResult.getMethod().getDescription());
 			// if having exception and not the org.testng.SkipException
@@ -190,13 +195,12 @@ public class XLSRuntimeReporter {
 	/**
 	 * set cell style by the test status
 	 * 
-	 * @param workbook
 	 * @param testResult
 	 * @param cell
 	 */
-	private void setCellStyle(Workbook workbook, ITestResult testResult,
-			Cell cell) {
-		CellStyle style = workbook.createCellStyle();
+	private void setCellStyle(ITestResult testResult, Cell cell) {
+		CellStyle style = WORKBOOK.createCellStyle();
+		style.setFillPattern(CellStyle.SOLID_FOREGROUND);
 		switch (testResult.getStatus()) {
 		case 1:// passed
 			style.setFillForegroundColor(IndexedColors.LIGHT_GREEN.getIndex());
@@ -209,9 +213,7 @@ public class XLSRuntimeReporter {
 			break;
 		default:
 			style.setFillForegroundColor(IndexedColors.GOLD.getIndex());
-			break;
 		}
-		style.setFillPattern(CellStyle.SOLID_FOREGROUND);
 		cell.setCellStyle(style);
 	}
 
@@ -221,16 +223,16 @@ public class XLSRuntimeReporter {
 	 * @param filePath
 	 * @return
 	 */
-	private Workbook openReport(String filePath) {
+	private boolean openReport(String filePath) {
 		FileInputStream ins = null;
-		Workbook workbook = null;
 		try {
 			File file = new File(filePath);
 			if (!file.exists()) {
-				workbook = new HSSFWorkbook();
+				WORKBOOK = new HSSFWorkbook();
 			} else {
 				ins = new FileInputStream(filePath);
-				workbook = new HSSFWorkbook(ins);
+				WORKBOOK = new HSSFWorkbook(ins);
+				return true;
 			}
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
@@ -243,20 +245,19 @@ public class XLSRuntimeReporter {
 				}
 			}
 		}
-		return workbook;
+		return false;
 	}
 
 	/**
 	 * save file content into the disk
 	 * 
-	 * @param workbook
 	 * @param filePath
 	 */
-	private void saveReport(Workbook workbook, String filePath) {
+	private void saveReport(String filePath) {
 		FileOutputStream fos = null;
 		try {
 			fos = new FileOutputStream(filePath);
-			workbook.write(fos);
+			WORKBOOK.write(fos);
 		} catch (IOException e) {
 			logger.error(e.getMessage(), e);
 		} finally {

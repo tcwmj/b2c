@@ -20,7 +20,8 @@ import org.testng.TestListenerAdapter;
 public class ResultListener extends TestListenerAdapter {
 
 	private static Logger logger = Logger.getLogger(ResultListener.class);
-	private XLSRuntimeReporter runtimeReporter;
+	private static XLSRuntimeReporter runtimeReporter = new XLSRuntimeReporter()
+			.generateReport();
 
 	@Override
 	public void onTestFailure(ITestResult testResult) {
@@ -80,9 +81,9 @@ public class ResultListener extends TestListenerAdapter {
 	@Override
 	public void onStart(ITestContext testContext) {
 		super.onStart(testContext);
-		String fileName = testContext.getCurrentXmlTest().getName() + ".xls";
-		runtimeReporter = new XLSRuntimeReporter(fileName);
-		runtimeReporter.generateReport();
+		// String fileName = testContext.getCurrentXmlTest().getName() + ".xls";
+		// runtimeReporter = new XLSRuntimeReporter(fileName);
+		// runtimeReporter.generateReport();
 	}
 
 	@Override
