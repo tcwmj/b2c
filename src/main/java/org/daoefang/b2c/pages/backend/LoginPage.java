@@ -49,7 +49,5 @@ public final class LoginPage extends BackendPage implements ILoginPage {
 
 	@Override
 	public void logout() {
-		System.err
-				.println("There is no logout function provided on admin home page");
 	}
 }

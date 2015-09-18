@@ -12,6 +12,7 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    	<argLine>-Dfile.encoding=UTF-8</argLine>
 	</properties>
 
 	<repositories>
@@ -165,12 +166,12 @@
 				<configuration>
 					<forkMode>once</forkMode>
 					<!-- <argLine>-Dfile.encoding=UTF-8</argLine> -->
+					<testFailureIgnore>true</testFailureIgnore>
 					<suiteXmlFiles>
 						<!-- <suiteXmlFile>config/${xmlFileName}</suiteXmlFile> -->
 						<suiteXmlFile>config/testng.xml</suiteXmlFile>
 					</suiteXmlFiles>
 					<properties>
-						<argLine>-Dfile.encoding=UTF-8</argLine>
 						<!-- <xmlFileName></xmlFileName> <property> <name>usedefaultlisteners</name> 
 							<value>false</value> </property> <property> <name>listener</name> <value>org.uncommons.reportng.HTMLReporter,org.uncommons.reportng.JUnitXMLReporter,org.daoefang.b2c.testng.HTMLReporter,org.daoefang.b2c.testng.XLSReporter,org.daoefang.b2c.testng.ResultListener,org.daoefang.b2c.testng.RetryListener,org.daoefang.b2c.testng.Hook</value> 
 							</property> -->

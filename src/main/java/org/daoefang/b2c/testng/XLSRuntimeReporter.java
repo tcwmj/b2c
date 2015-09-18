@@ -115,9 +115,11 @@ public class XLSRuntimeReporter {
 		Integer testRow = updateTestSheet(testResult);
 		Integer stepRow = updateStepSheet(testResult);
 		// set hyperlink between test sheet and step sheet
-		if (testRow != null && stepRow != null) {
+		// if the new status is not skipped or started, then update it
+		if (testRow != null && stepRow != null && testResult.getStatus() != 3
+				&& testResult.getStatus() != 16) {
 			HSSFHyperlink link = new HSSFHyperlink(HSSFHyperlink.LINK_DOCUMENT);
-			link.setAddress("'" + STEP_SHEET_NAME + "'!A" + stepRow);
+			link.setAddress("'" + STEP_SHEET_NAME + "'!A" + (stepRow + 1));
 			Row row = WORKBOOK.getSheet(TEST_SHEET_NAME).getRow(testRow);
 			row.getCell(1).setHyperlink(link);
 		}
