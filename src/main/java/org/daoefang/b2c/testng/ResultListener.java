@@ -19,9 +19,10 @@ import org.testng.TestListenerAdapter;
  */
 public class ResultListener extends TestListenerAdapter {
 
-	private static Logger logger = Logger.getLogger(ResultListener.class);
-	private static XLSRuntimeReporter runtimeReporter = new XLSRuntimeReporter()
-			.generateReport();
+	private final static Logger logger = Logger.getLogger(ResultListener.class);
+	// private final static XLSRuntimeReporter runtimeReporter = new
+	// XLSRuntimeReporter();
+	private XLSRuntimeReporter runtimeReporter;
 
 	@Override
 	public void onTestFailure(ITestResult testResult) {
@@ -81,9 +82,9 @@ public class ResultListener extends TestListenerAdapter {
 	@Override
 	public void onStart(ITestContext testContext) {
 		super.onStart(testContext);
-		// String fileName = testContext.getCurrentXmlTest().getName() + ".xls";
-		// runtimeReporter = new XLSRuntimeReporter(fileName);
-		// runtimeReporter.generateReport();
+		String fileName = testContext.getCurrentXmlTest().getName() + ".xls";
+		runtimeReporter = XLSRuntimeReporterFactory
+				.getXLSRuntimeReporter(fileName);
 	}
 
 	@Override
